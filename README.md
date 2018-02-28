@@ -1,3 +1,7 @@
+# Chronograph
+
+**An iOS application that utilizes the Google Maps API which allows users to set destination based alarms. This application’s is aimed towards public transportation goers. It’s main purpose is to alert the traveler when they’re nearing their stop, allowing the traveler to spend their travel time napping, playing, or anything besides constantly checking if they’ve arrived.  
+
 ## User Stories
 The following are **core** user stories:
 
