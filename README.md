@@ -1,3 +1,14 @@
+## User Stories
+The following are **core** user stories:
+
+- [ ] User can see a map.
+- [ ] User can set a designated location by dropping a pin.
+- [ ] User can set a designated location by typing in an address.
+- [ ] User can receive a sound notification as default or when necessary.
+- [ ] User can change the type of alarm they would receive (vibrate, sound, banner).
+- [ ] User can have my phone set to silent and still have the alarm go off.
+
+
 The following are **optional** user stories:
 
 - [ ] User can pick a sound file as their alarm.
