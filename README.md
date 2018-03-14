@@ -5,16 +5,20 @@
 ## User Stories
 The following are **core** user stories:
 
-- [ ] User can see a map.
-- [ ] User can set a designated location by dropping a pin.
-- [ ] User can set a designated location by typing in an address.
+- [ ] User can see a map with pre-set train station (Bart / Caltrain) pins.
+- [ ] User can set a designated location by picking and setting a pin as a destination.
+- [ ] User can toggle between list view and map view.
+- [ ] User can see ETA and distance left.
 - [ ] User can receive a sound notification as default or when necessary.
 - [ ] User can change the type of alarm they would receive (vibrate, sound, banner).
-- [ ] User can have my phone set to silent and still have the alarm go off.
+- [ ] User can have phone set to silent and still have the alarm go off.
 
 
 The following are **optional** user stories:
 
+- [ ] Run in background.
+- [ ] Offline mode.
+- [ ] View commute history (requires profile).
 - [ ] User can pick a sound file as their alarm.
 - [ ] User can check weather of end-destination.
 - [ ] User can allow for alarm notifications to be sent to their phone’s messenger.
@@ -39,4 +43,4 @@ A walkthrough of our project will be viewable here.
 * What mobile features do you leverage?
     * We are using location, and potentially background tracking to provide convenient usage for our app. We are using maps but we chose to use Google Maps and Google Places, we might also need a Caltrain API / Bart API.
 * What are your technical concerns?
-    * We aren't sure we can use google maps to create a route for a destination. Geofencing may get messy, or perhaps offline mode may be difficult to design. 
+    * We aren't sure we can use google maps to create a route for a destination. Geofencing may get messy, or perhaps offline mode may be difficult to design.
