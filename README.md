@@ -25,3 +25,18 @@ The following are **optional** user stories:
 A walkthrough of our project will be viewable here.
 
 <img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+# Considerations
+* What is your product pitch?
+    * Have you ever wanted to nap while on a long trip on a train? Well we've got you covered! With this destination based alarm clock, you can nap away all your concerns and we'll wake you before your stop!
+* Who are the key stakeholders for this app?
+    * Public transportation users (trains).  They will use this to keep track of their route and view updates on their estimated time of arrival.
+* What are the core flows?
+    * Viewing a map, setting a destination, viewing the route in progress.
+* What will your final demo look like?
+    * Users are greeted with a map on their current location. They will see several pins around them based on the type of public transportation they are using. The user can click on a pin to set it as the destination.
+* What mobile features do you leverage?
+    *
+* What are your technical concerns?
+    *
