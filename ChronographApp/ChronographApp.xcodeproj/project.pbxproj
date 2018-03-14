@@ -1,0 +1,792 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6D28286ADBA8773F1FF5A52A /* Pods_ChronographAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5F5603AB0D8464A762121B /* Pods_ChronographAppUITests.framework */; };
+		84B3A177CA161BCA371AB047 /* Pods_ChronographAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546EFAD08BB76C59B40812DA /* Pods_ChronographAppTests.framework */; };
+		B895AB9620589212004CB7A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B895AB9520589212004CB7A5 /* AppDelegate.swift */; };
+		B895AB9B20589212004CB7A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B895AB9920589212004CB7A5 /* Main.storyboard */; };
+		B895AB9D20589212004CB7A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B895AB9C20589212004CB7A5 /* Assets.xcassets */; };
+		B895ABA020589212004CB7A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B895AB9E20589212004CB7A5 /* LaunchScreen.storyboard */; };
+		B895ABAB20589212004CB7A5 /* ChronographAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B895ABAA20589212004CB7A5 /* ChronographAppTests.swift */; };
+		B895ABB620589212004CB7A5 /* ChronographAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B895ABB520589212004CB7A5 /* ChronographAppUITests.swift */; };
+		B895ABC6205897CE004CB7A5 /* GoogleMapsAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B895ABC5205897CE004CB7A5 /* GoogleMapsAPIManager.swift */; };
+		B895ABCA20589A25004CB7A5 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B895ABC920589A25004CB7A5 /* InitialViewController.swift */; };
+		E8EE25E95DC5FFF160315F2C /* Pods_ChronographApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50416F2B71083A9FF22A61B5 /* Pods_ChronographApp.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B895ABA720589212004CB7A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B895AB8A20589212004CB7A5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B895AB9120589212004CB7A5;
+			remoteInfo = ChronographApp;
+		};
+		B895ABB220589212004CB7A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B895AB8A20589212004CB7A5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B895AB9120589212004CB7A5;
+			remoteInfo = ChronographApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		11A380C0ED31E0837121ECB4 /* Pods-ChronographApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographApp/Pods-ChronographApp.release.xcconfig"; sourceTree = "<group>"; };
+		1749B47E4B29950C0E54C71D /* Pods-ChronographAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographAppUITests/Pods-ChronographAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		27866F16E711A61B6C841155 /* Pods-ChronographAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographAppTests/Pods-ChronographAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		50416F2B71083A9FF22A61B5 /* Pods_ChronographApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChronographApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		546EFAD08BB76C59B40812DA /* Pods_ChronographAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChronographAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8565E0E4441E7F47471D61F8 /* Pods-ChronographAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographAppTests/Pods-ChronographAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		8E5F5603AB0D8464A762121B /* Pods_ChronographAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChronographAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA76E97CD08BF5D83F1D3564 /* Pods-ChronographAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographAppUITests/Pods-ChronographAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B895AB9220589212004CB7A5 /* ChronographApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChronographApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B895AB9520589212004CB7A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B895AB9A20589212004CB7A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B895AB9C20589212004CB7A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B895AB9F20589212004CB7A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B895ABA120589212004CB7A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B895ABA620589212004CB7A5 /* ChronographAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChronographAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B895ABAA20589212004CB7A5 /* ChronographAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChronographAppTests.swift; sourceTree = "<group>"; };
+		B895ABAC20589212004CB7A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B895ABB120589212004CB7A5 /* ChronographAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChronographAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B895ABB520589212004CB7A5 /* ChronographAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChronographAppUITests.swift; sourceTree = "<group>"; };
+		B895ABB720589212004CB7A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B895ABC5205897CE004CB7A5 /* GoogleMapsAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsAPIManager.swift; sourceTree = "<group>"; };
+		B895ABC920589A25004CB7A5 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		BBB9063CF32369FA7C6689E2 /* Pods-ChronographApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographApp/Pods-ChronographApp.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B895AB8F20589212004CB7A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8EE25E95DC5FFF160315F2C /* Pods_ChronographApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B895ABA320589212004CB7A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84B3A177CA161BCA371AB047 /* Pods_ChronographAppTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B895ABAE20589212004CB7A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D28286ADBA8773F1FF5A52A /* Pods_ChronographAppUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B1ABAB0514DFE42FE28E53FF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				50416F2B71083A9FF22A61B5 /* Pods_ChronographApp.framework */,
+				546EFAD08BB76C59B40812DA /* Pods_ChronographAppTests.framework */,
+				8E5F5603AB0D8464A762121B /* Pods_ChronographAppUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B895AB8920589212004CB7A5 = {
+			isa = PBXGroup;
+			children = (
+				B895AB9420589212004CB7A5 /* ChronographApp */,
+				B895ABA920589212004CB7A5 /* ChronographAppTests */,
+				B895ABB420589212004CB7A5 /* ChronographAppUITests */,
+				B895AB9320589212004CB7A5 /* Products */,
+				FA9C4FF5F12A56AC524D0503 /* Pods */,
+				B1ABAB0514DFE42FE28E53FF /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B895AB9320589212004CB7A5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B895AB9220589212004CB7A5 /* ChronographApp.app */,
+				B895ABA620589212004CB7A5 /* ChronographAppTests.xctest */,
+				B895ABB120589212004CB7A5 /* ChronographAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B895AB9420589212004CB7A5 /* ChronographApp */ = {
+			isa = PBXGroup;
+			children = (
+				B895ABCC20589A51004CB7A5 /* Classes */,
+				B895ABCB20589A44004CB7A5 /* ViewControllers */,
+				B895AB9520589212004CB7A5 /* AppDelegate.swift */,
+				B895AB9920589212004CB7A5 /* Main.storyboard */,
+				B895AB9C20589212004CB7A5 /* Assets.xcassets */,
+				B895AB9E20589212004CB7A5 /* LaunchScreen.storyboard */,
+				B895ABA120589212004CB7A5 /* Info.plist */,
+			);
+			path = ChronographApp;
+			sourceTree = "<group>";
+		};
+		B895ABA920589212004CB7A5 /* ChronographAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				B895ABAA20589212004CB7A5 /* ChronographAppTests.swift */,
+				B895ABAC20589212004CB7A5 /* Info.plist */,
+			);
+			path = ChronographAppTests;
+			sourceTree = "<group>";
+		};
+		B895ABB420589212004CB7A5 /* ChronographAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B895ABB520589212004CB7A5 /* ChronographAppUITests.swift */,
+				B895ABB720589212004CB7A5 /* Info.plist */,
+			);
+			path = ChronographAppUITests;
+			sourceTree = "<group>";
+		};
+		B895ABCB20589A44004CB7A5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B895ABC920589A25004CB7A5 /* InitialViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B895ABCC20589A51004CB7A5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B895ABC5205897CE004CB7A5 /* GoogleMapsAPIManager.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		FA9C4FF5F12A56AC524D0503 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BBB9063CF32369FA7C6689E2 /* Pods-ChronographApp.debug.xcconfig */,
+				11A380C0ED31E0837121ECB4 /* Pods-ChronographApp.release.xcconfig */,
+				27866F16E711A61B6C841155 /* Pods-ChronographAppTests.debug.xcconfig */,
+				8565E0E4441E7F47471D61F8 /* Pods-ChronographAppTests.release.xcconfig */,
+				AA76E97CD08BF5D83F1D3564 /* Pods-ChronographAppUITests.debug.xcconfig */,
+				1749B47E4B29950C0E54C71D /* Pods-ChronographAppUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B895AB9120589212004CB7A5 /* ChronographApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B895ABBA20589212004CB7A5 /* Build configuration list for PBXNativeTarget "ChronographApp" */;
+			buildPhases = (
+				B94D09D52852906327DD280E /* [CP] Check Pods Manifest.lock */,
+				B895AB8E20589212004CB7A5 /* Sources */,
+				B895AB8F20589212004CB7A5 /* Frameworks */,
+				B895AB9020589212004CB7A5 /* Resources */,
+				DFFB49ADE03631A3C5FA21D2 /* [CP] Embed Pods Frameworks */,
+				3F65508EFB3E65D2B15648CD /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChronographApp;
+			productName = ChronographApp;
+			productReference = B895AB9220589212004CB7A5 /* ChronographApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B895ABA520589212004CB7A5 /* ChronographAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B895ABBD20589212004CB7A5 /* Build configuration list for PBXNativeTarget "ChronographAppTests" */;
+			buildPhases = (
+				7ADD86F78D1574CAD2546811 /* [CP] Check Pods Manifest.lock */,
+				B895ABA220589212004CB7A5 /* Sources */,
+				B895ABA320589212004CB7A5 /* Frameworks */,
+				B895ABA420589212004CB7A5 /* Resources */,
+				FB84EB1B5A6A5454D7E15C0A /* [CP] Embed Pods Frameworks */,
+				041DD97C1EDB0BC66DC47EE1 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B895ABA820589212004CB7A5 /* PBXTargetDependency */,
+			);
+			name = ChronographAppTests;
+			productName = ChronographAppTests;
+			productReference = B895ABA620589212004CB7A5 /* ChronographAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B895ABB020589212004CB7A5 /* ChronographAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B895ABC020589212004CB7A5 /* Build configuration list for PBXNativeTarget "ChronographAppUITests" */;
+			buildPhases = (
+				7A3728AE0604E122DFEED646 /* [CP] Check Pods Manifest.lock */,
+				B895ABAD20589212004CB7A5 /* Sources */,
+				B895ABAE20589212004CB7A5 /* Frameworks */,
+				B895ABAF20589212004CB7A5 /* Resources */,
+				A39CAF93C85B84FDF9B0CE4F /* [CP] Embed Pods Frameworks */,
+				D1CBBAB9FACEE6D72D0144D1 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B895ABB320589212004CB7A5 /* PBXTargetDependency */,
+			);
+			name = ChronographAppUITests;
+			productName = ChronographAppUITests;
+			productReference = B895ABB120589212004CB7A5 /* ChronographAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B895AB8A20589212004CB7A5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Nancy Gomez";
+				TargetAttributes = {
+					B895AB9120589212004CB7A5 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					B895ABA520589212004CB7A5 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B895AB9120589212004CB7A5;
+					};
+					B895ABB020589212004CB7A5 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B895AB9120589212004CB7A5;
+					};
+				};
+			};
+			buildConfigurationList = B895AB8D20589212004CB7A5 /* Build configuration list for PBXProject "ChronographApp" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B895AB8920589212004CB7A5;
+			productRefGroup = B895AB9320589212004CB7A5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B895AB9120589212004CB7A5 /* ChronographApp */,
+				B895ABA520589212004CB7A5 /* ChronographAppTests */,
+				B895ABB020589212004CB7A5 /* ChronographAppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B895AB9020589212004CB7A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B895ABA020589212004CB7A5 /* LaunchScreen.storyboard in Resources */,
+				B895AB9D20589212004CB7A5 /* Assets.xcassets in Resources */,
+				B895AB9B20589212004CB7A5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B895ABA420589212004CB7A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B895ABAF20589212004CB7A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		041DD97C1EDB0BC66DC47EE1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChronographAppTests/Pods-ChronographAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3F65508EFB3E65D2B15648CD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ChronographApp/Pods-ChronographApp-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChronographApp/Pods-ChronographApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7A3728AE0604E122DFEED646 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChronographAppUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7ADD86F78D1574CAD2546811 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChronographAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A39CAF93C85B84FDF9B0CE4F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChronographAppUITests/Pods-ChronographAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B94D09D52852906327DD280E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChronographApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1CBBAB9FACEE6D72D0144D1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChronographAppUITests/Pods-ChronographAppUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DFFB49ADE03631A3C5FA21D2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChronographApp/Pods-ChronographApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB84EB1B5A6A5454D7E15C0A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChronographAppTests/Pods-ChronographAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B895AB8E20589212004CB7A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B895ABCA20589A25004CB7A5 /* InitialViewController.swift in Sources */,
+				B895AB9620589212004CB7A5 /* AppDelegate.swift in Sources */,
+				B895ABC6205897CE004CB7A5 /* GoogleMapsAPIManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B895ABA220589212004CB7A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B895ABAB20589212004CB7A5 /* ChronographAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B895ABAD20589212004CB7A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B895ABB620589212004CB7A5 /* ChronographAppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B895ABA820589212004CB7A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B895AB9120589212004CB7A5 /* ChronographApp */;
+			targetProxy = B895ABA720589212004CB7A5 /* PBXContainerItemProxy */;
+		};
+		B895ABB320589212004CB7A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B895AB9120589212004CB7A5 /* ChronographApp */;
+			targetProxy = B895ABB220589212004CB7A5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B895AB9920589212004CB7A5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B895AB9A20589212004CB7A5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B895AB9E20589212004CB7A5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B895AB9F20589212004CB7A5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B895ABB820589212004CB7A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B895ABB920589212004CB7A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B895ABBB20589212004CB7A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBB9063CF32369FA7C6689E2 /* Pods-ChronographApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 636ZKM32BY;
+				INFOPLIST_FILE = ChronographApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = codepath.ChronographApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B895ABBC20589212004CB7A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11A380C0ED31E0837121ECB4 /* Pods-ChronographApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 636ZKM32BY;
+				INFOPLIST_FILE = ChronographApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = codepath.ChronographApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B895ABBE20589212004CB7A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27866F16E711A61B6C841155 /* Pods-ChronographAppTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 636ZKM32BY;
+				INFOPLIST_FILE = ChronographAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = codepath.ChronographAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChronographApp.app/ChronographApp";
+			};
+			name = Debug;
+		};
+		B895ABBF20589212004CB7A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8565E0E4441E7F47471D61F8 /* Pods-ChronographAppTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 636ZKM32BY;
+				INFOPLIST_FILE = ChronographAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = codepath.ChronographAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChronographApp.app/ChronographApp";
+			};
+			name = Release;
+		};
+		B895ABC120589212004CB7A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA76E97CD08BF5D83F1D3564 /* Pods-ChronographAppUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 636ZKM32BY;
+				INFOPLIST_FILE = ChronographAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = codepath.ChronographAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ChronographApp;
+			};
+			name = Debug;
+		};
+		B895ABC220589212004CB7A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1749B47E4B29950C0E54C71D /* Pods-ChronographAppUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 636ZKM32BY;
+				INFOPLIST_FILE = ChronographAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = codepath.ChronographAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ChronographApp;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B895AB8D20589212004CB7A5 /* Build configuration list for PBXProject "ChronographApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B895ABB820589212004CB7A5 /* Debug */,
+				B895ABB920589212004CB7A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B895ABBA20589212004CB7A5 /* Build configuration list for PBXNativeTarget "ChronographApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B895ABBB20589212004CB7A5 /* Debug */,
+				B895ABBC20589212004CB7A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B895ABBD20589212004CB7A5 /* Build configuration list for PBXNativeTarget "ChronographAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B895ABBE20589212004CB7A5 /* Debug */,
+				B895ABBF20589212004CB7A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B895ABC020589212004CB7A5 /* Build configuration list for PBXNativeTarget "ChronographAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B895ABC120589212004CB7A5 /* Debug */,
+				B895ABC220589212004CB7A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B895AB8A20589212004CB7A5 /* Project object */;
+}
