@@ -37,6 +37,6 @@ A walkthrough of our project will be viewable here.
 * What will your final demo look like?
     * Users are greeted with a map on their current location. They will see several pins around them based on the type of public transportation they are using. The user can click on a pin to set it as the destination.
 * What mobile features do you leverage?
-    *
+    * We are using location, and potentially background tracking to provide convenient usage for our app. We are using maps but we chose to use Google Maps and Google Places, we might also need a Caltrain API / Bart API.
 * What are your technical concerns?
-    *
+    * We aren't sure we can use google maps to create a route for a destination. Geofencing may get messy, or perhaps offline mode may be difficult to design. 
