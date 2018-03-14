@@ -10,12 +10,13 @@
 		6D28286ADBA8773F1FF5A52A /* Pods_ChronographAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5F5603AB0D8464A762121B /* Pods_ChronographAppUITests.framework */; };
 		84B3A177CA161BCA371AB047 /* Pods_ChronographAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546EFAD08BB76C59B40812DA /* Pods_ChronographAppTests.framework */; };
 		B895AB9620589212004CB7A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B895AB9520589212004CB7A5 /* AppDelegate.swift */; };
-		B895AB9820589212004CB7A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B895AB9720589212004CB7A5 /* ViewController.swift */; };
 		B895AB9B20589212004CB7A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B895AB9920589212004CB7A5 /* Main.storyboard */; };
 		B895AB9D20589212004CB7A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B895AB9C20589212004CB7A5 /* Assets.xcassets */; };
 		B895ABA020589212004CB7A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B895AB9E20589212004CB7A5 /* LaunchScreen.storyboard */; };
 		B895ABAB20589212004CB7A5 /* ChronographAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B895ABAA20589212004CB7A5 /* ChronographAppTests.swift */; };
 		B895ABB620589212004CB7A5 /* ChronographAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B895ABB520589212004CB7A5 /* ChronographAppUITests.swift */; };
+		B895ABC6205897CE004CB7A5 /* GoogleMapsAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B895ABC5205897CE004CB7A5 /* GoogleMapsAPIManager.swift */; };
+		B895ABCA20589A25004CB7A5 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B895ABC920589A25004CB7A5 /* InitialViewController.swift */; };
 		E8EE25E95DC5FFF160315F2C /* Pods_ChronographApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50416F2B71083A9FF22A61B5 /* Pods_ChronographApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,7 +48,6 @@
 		AA76E97CD08BF5D83F1D3564 /* Pods-ChronographAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographAppUITests/Pods-ChronographAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B895AB9220589212004CB7A5 /* ChronographApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChronographApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B895AB9520589212004CB7A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B895AB9720589212004CB7A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B895AB9A20589212004CB7A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B895AB9C20589212004CB7A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B895AB9F20589212004CB7A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,6 +58,8 @@
 		B895ABB120589212004CB7A5 /* ChronographAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChronographAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B895ABB520589212004CB7A5 /* ChronographAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChronographAppUITests.swift; sourceTree = "<group>"; };
 		B895ABB720589212004CB7A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B895ABC5205897CE004CB7A5 /* GoogleMapsAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsAPIManager.swift; sourceTree = "<group>"; };
+		B895ABC920589A25004CB7A5 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		BBB9063CF32369FA7C6689E2 /* Pods-ChronographApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographApp/Pods-ChronographApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,8 +126,9 @@
 		B895AB9420589212004CB7A5 /* ChronographApp */ = {
 			isa = PBXGroup;
 			children = (
+				B895ABCC20589A51004CB7A5 /* Classes */,
+				B895ABCB20589A44004CB7A5 /* ViewControllers */,
 				B895AB9520589212004CB7A5 /* AppDelegate.swift */,
-				B895AB9720589212004CB7A5 /* ViewController.swift */,
 				B895AB9920589212004CB7A5 /* Main.storyboard */,
 				B895AB9C20589212004CB7A5 /* Assets.xcassets */,
 				B895AB9E20589212004CB7A5 /* LaunchScreen.storyboard */,
@@ -150,6 +153,22 @@
 				B895ABB720589212004CB7A5 /* Info.plist */,
 			);
 			path = ChronographAppUITests;
+			sourceTree = "<group>";
+		};
+		B895ABCB20589A44004CB7A5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B895ABC920589A25004CB7A5 /* InitialViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B895ABCC20589A51004CB7A5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B895ABC5205897CE004CB7A5 /* GoogleMapsAPIManager.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		FA9C4FF5F12A56AC524D0503 /* Pods */ = {
@@ -462,8 +481,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B895AB9820589212004CB7A5 /* ViewController.swift in Sources */,
+				B895ABCA20589A25004CB7A5 /* InitialViewController.swift in Sources */,
 				B895AB9620589212004CB7A5 /* AppDelegate.swift in Sources */,
+				B895ABC6205897CE004CB7A5 /* GoogleMapsAPIManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
