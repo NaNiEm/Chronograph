@@ -20,6 +20,8 @@ class InitialViewController: UIViewController {
     var selectedPlace: GMSPlace?
     let defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
 
+    var stations: [Station] = []
+    
     @IBOutlet weak var mapUIView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +48,12 @@ class InitialViewController: UIViewController {
         mapUIView.addSubview(mapView)
         mapView.isHidden = true
         
+        BartAPIManager().listBartStations{ (stations: [Station]?, error: Error?) in
+            if let stations = stations {
+//                self.movies = movies
+//                self.tableView.reloadData()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
