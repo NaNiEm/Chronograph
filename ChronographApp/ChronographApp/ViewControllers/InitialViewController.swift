@@ -62,6 +62,7 @@ extension InitialViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location: CLLocation = locations.last!
         print("Location: \(location)")
+        currentLocation = location
         
         let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
                                               longitude: location.coordinate.longitude,
@@ -73,6 +74,11 @@ extension InitialViewController: CLLocationManagerDelegate {
         } else {
             mapView.animate(to: camera)
         }
+        
+        let marker = GMSMarker(position: (location.coordinate))
+        marker.title = "TEST"
+        marker.snippet = "test"
+        marker.map = mapView
     }
     
     // Handle authorization for the location manager.
