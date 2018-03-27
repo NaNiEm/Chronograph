@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		267611D2206A2E0B0061AAD0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267611D1206A2E0B0061AAD0 /* ProfileViewController.swift */; };
+		267611D4206A2E400061AAD0 /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267611D3206A2E400061AAD0 /* RoutesViewController.swift */; };
+		267611D7206A3BB80061AAD0 /* StationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267611D6206A3BB80061AAD0 /* StationTableViewCell.swift */; };
 		6D28286ADBA8773F1FF5A52A /* Pods_ChronographAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5F5603AB0D8464A762121B /* Pods_ChronographAppUITests.framework */; };
 		84B3A177CA161BCA371AB047 /* Pods_ChronographAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546EFAD08BB76C59B40812DA /* Pods_ChronographAppTests.framework */; };
 		B86E63DD2069A8220097BEE5 /* BartAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E63DC2069A8220097BEE5 /* BartAPIManager.swift */; };
@@ -42,6 +45,9 @@
 /* Begin PBXFileReference section */
 		11A380C0ED31E0837121ECB4 /* Pods-ChronographApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographApp/Pods-ChronographApp.release.xcconfig"; sourceTree = "<group>"; };
 		1749B47E4B29950C0E54C71D /* Pods-ChronographAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographAppUITests/Pods-ChronographAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		267611D1206A2E0B0061AAD0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		267611D3206A2E400061AAD0 /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
+		267611D6206A3BB80061AAD0 /* StationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationTableViewCell.swift; sourceTree = "<group>"; };
 		27866F16E711A61B6C841155 /* Pods-ChronographAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographAppTests/Pods-ChronographAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		50416F2B71083A9FF22A61B5 /* Pods_ChronographApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChronographApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		546EFAD08BB76C59B40812DA /* Pods_ChronographAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChronographAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +101,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		267611D5206A3B990061AAD0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				267611D6206A3BB80061AAD0 /* StationTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B1ABAB0514DFE42FE28E53FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +144,7 @@
 		B895AB9420589212004CB7A5 /* ChronographApp */ = {
 			isa = PBXGroup;
 			children = (
+				267611D5206A3B990061AAD0 /* Views */,
 				B895ABCC20589A51004CB7A5 /* Classes */,
 				B895ABCB20589A44004CB7A5 /* ViewControllers */,
 				B895AB9520589212004CB7A5 /* AppDelegate.swift */,
@@ -163,6 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				B895ABC920589A25004CB7A5 /* InitialViewController.swift */,
+				267611D1206A2E0B0061AAD0 /* ProfileViewController.swift */,
+				267611D3206A2E400061AAD0 /* RoutesViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -487,11 +504,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				267611D2206A2E0B0061AAD0 /* ProfileViewController.swift in Sources */,
 				B895ABCA20589A25004CB7A5 /* InitialViewController.swift in Sources */,
+				267611D7206A3BB80061AAD0 /* StationTableViewCell.swift in Sources */,
 				B86E63DF2069A9670097BEE5 /* Station.swift in Sources */,
 				B86E63DD2069A8220097BEE5 /* BartAPIManager.swift in Sources */,
 				B895AB9620589212004CB7A5 /* AppDelegate.swift in Sources */,
 				B895ABC6205897CE004CB7A5 /* GoogleMapsAPIManager.swift in Sources */,
+				267611D4206A2E400061AAD0 /* RoutesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
