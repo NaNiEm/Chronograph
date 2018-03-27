@@ -42,7 +42,10 @@ class InitialViewController: UIViewController {
         mapView = GMSMapView.map(withFrame: mapUIView.bounds, camera: camera)
         mapView.settings.myLocationButton = true
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
+        //radius is in meters
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(90, -122), radius: 100, identifier: "SF")
+        locationManager.startMonitoring(for: geofenceRegion)
+        print(geofenceRegion.identifier)
         // Add the map to the view, hide it until we've got a location update.
         mapUIView.addSubview(mapView)
         mapView.isHidden = true
@@ -59,6 +62,7 @@ class InitialViewController: UIViewController {
             marker.map = mapView
         }
     }
+    
     func fetchBartList() {
         BartAPIManager().listBartStations{ (stations: [Station]?, error: Error?) in
             if let stations = stations {
@@ -72,7 +76,6 @@ class InitialViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
 }
 
@@ -122,4 +125,10 @@ extension InitialViewController: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
         print("Error: \(error)")
     }
+    
+    // Handle when destination hits user parameter.
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        print(region.identifier)
+    }
+    
 }
