@@ -18,7 +18,6 @@ class BartAPIManager {
     }
     
     func listBartStations(completion: @escaping ([Station]?, Error?) -> ()) {
-        print("Start Bart API Call")
         // link for list of BART stations (JSON) : http://api.bart.gov/api/stn.aspx?cmd=stns&key=QSBV-PVEA-9KET-DWE9&json=y
         let url = URL(string: BartAPIManager.baseURL + "cmd=stns&key=\(BartAPIManager.apiKey)&json=y")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
@@ -30,17 +29,12 @@ class BartAPIManager {
                 let stationInfo = rawDict["stations"] as! [String: Any]
                 let stationList = stationInfo["station"] as! [[String: Any]]
                 let stations = Station.stations(dicts: stationList)
-                for station in stations {
-                    print("Station in let data = data")
-                    print(station.name)
-                }
                 completion(stations, nil)
             } else {
                 completion(nil, error)
             }
         }
         task.resume()
-        print("End Bart API Call")
     }
     
 }

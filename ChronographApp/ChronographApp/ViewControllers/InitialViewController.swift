@@ -10,8 +10,9 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
+
+
 class InitialViewController: UIViewController {
-    
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     var mapView: GMSMapView!
@@ -49,20 +50,20 @@ class InitialViewController: UIViewController {
         mapView.isHidden = true
         
         fetchBartList()
-        print(stations.count)
+
+    }
+    func plotStations(){
         for station in stations {
             print(station.name)
         }
     }
-    
     func fetchBartList() {
-        print("calling listBartStations")
         BartAPIManager().listBartStations{ (stations: [Station]?, error: Error?) in
             if let stations = stations {
                 self.stations = stations
+                self.plotStations()
             }
         }
-        print("end call listBartStations")
     }
 
     override func didReceiveMemoryWarning() {
