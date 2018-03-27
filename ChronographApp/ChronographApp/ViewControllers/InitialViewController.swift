@@ -48,7 +48,7 @@ class InitialViewController: UIViewController {
         
         fetchBartList()
         
-        setGeoFence()
+        
 
     }
     func plotStations(){
@@ -59,6 +59,7 @@ class InitialViewController: UIViewController {
             marker.snippet = station.address
             marker.map = mapView
         }
+        setGeoFence()
     }
     
     func fetchBartList() {
@@ -72,12 +73,13 @@ class InitialViewController: UIViewController {
     
     func setGeoFence(){
         //radius is in meters
-        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(30, -122), radius: 1000, identifier: "SF")
+        let stationTest: Station = stations[1]
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(stationTest.latitude), CLLocationDegrees(stationTest.longitude)), radius: 100, identifier: "SF")
         locationManager.startMonitoring(for: geofenceRegion)
         geofenceRegion.notifyOnEntry = true
         let circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
         circle.fillColor = UIColor(white:0.7,alpha:0.5)
-        circle.strokeWidth = 3;
+        circle.strokeWidth = 1;
         circle.strokeColor = UIColor.gray
         circle.map = mapView
         print(geofenceRegion.identifier)
