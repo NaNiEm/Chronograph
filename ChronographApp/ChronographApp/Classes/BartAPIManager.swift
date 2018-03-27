@@ -30,6 +30,10 @@ class BartAPIManager {
                 let stationInfo = rawDict["stations"] as! [String: Any]
                 let stationList = stationInfo["station"] as! [[String: Any]]
                 let stations = Station.stations(dicts: stationList)
+                for station in stations {
+                    print("Station in let data = data")
+                    print(station.name)
+                }
                 completion(stations, nil)
             } else {
                 completion(nil, error)

@@ -48,13 +48,20 @@ class InitialViewController: UIViewController {
         mapUIView.addSubview(mapView)
         mapView.isHidden = true
         
+        fetchBartList()
+        print(stations.count)
+        for station in stations {
+            print(station.name)
+        }
+    }
+    
+    func fetchBartList() {
         print("calling listBartStations")
         BartAPIManager().listBartStations{ (stations: [Station]?, error: Error?) in
             if let stations = stations {
                 self.stations = stations
             }
         }
-        print(stations)
         print("end call listBartStations")
     }
 
@@ -71,7 +78,7 @@ extension InitialViewController: CLLocationManagerDelegate {
     // Handle incoming location events.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location: CLLocation = locations.last!
-        print("Location: \(location)")
+//        print("Location: \(location)")
         currentLocation = location
         
         let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,

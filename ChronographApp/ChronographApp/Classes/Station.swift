@@ -63,7 +63,7 @@ class Station {
         var stations: [Station] = []
         for dict in dicts {
             let station = Station(dict: dict)
-            print("station: ", station)
+//            print("station name: ", station.name)
             stations.append(station)
         }
         
