@@ -9,8 +9,7 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
-
-
+import UserNotifications
 
 class InitialViewController: UIViewController {
     var locationManager = CLLocationManager()
@@ -42,15 +41,14 @@ class InitialViewController: UIViewController {
         mapView = GMSMapView.map(withFrame: mapUIView.bounds, camera: camera)
         mapView.settings.myLocationButton = true
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        //radius is in meters
-        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(90, -122), radius: 100, identifier: "SF")
-        locationManager.startMonitoring(for: geofenceRegion)
-        print(geofenceRegion.identifier)
+        
         // Add the map to the view, hide it until we've got a location update.
         mapUIView.addSubview(mapView)
         mapView.isHidden = true
         
         fetchBartList()
+        
+        setGeoFence()
 
     }
     func plotStations(){
@@ -71,10 +69,50 @@ class InitialViewController: UIViewController {
             }
         }
     }
-
+    
+    func setGeoFence(){
+        //radius is in meters
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(90, -122), radius: 100, identifier: "SF")
+        locationManager.startMonitoring(for: geofenceRegion)
+        geofenceRegion.notifyOnEntry = true
+        print(geofenceRegion.identifier)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func handleEvent(forRegion region: CLRegion!) {
+        
+        // customize your notification content
+        let content = UNMutableNotificationContent()
+        content.title = "Get Ready"
+        content.body = "Now approaching destination"
+        content.sound = UNNotificationSound.default()
+        
+        // when the notification will be triggered
+//        var timeInSeconds: TimeInterval = (60 * 15) // 60s * 15 = 15min
+        let timeInSeconds: TimeInterval = 1
+        // the actual trigger object
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInSeconds,
+                                                        repeats: false)
+        
+        // notification unique identifier, for this example, same as the region to avoid duplicate notifications
+        let identifier = region.identifier
+        
+        // the notification request object
+        let request = UNNotificationRequest(identifier: identifier,
+                                            content: content,
+                                            trigger: trigger)
+        print(content.title)
+        // trying to add the notification request to notification center
+        let center = UNUserNotificationCenter.current()
+        center.add(request) { (error : Error?) in
+            if let theError = error {
+                print(theError.localizedDescription)
+            }
+        }
     }
 
 }
@@ -128,7 +166,11 @@ extension InitialViewController: CLLocationManagerDelegate {
     
     // Handle when destination hits user parameter.
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        print(region.identifier)
+//        print(region.identifier)
+        if region is CLCircularRegion {
+            // Do what you want if this information
+            self.handleEvent(forRegion: region)
+        }
     }
     
 }
