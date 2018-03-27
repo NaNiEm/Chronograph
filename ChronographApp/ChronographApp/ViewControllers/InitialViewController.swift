@@ -19,7 +19,7 @@ class InitialViewController: UIViewController {
     var zoomLevel: Float = 15.0
     var selectedPlace: GMSPlace?
     let defaultLocation = CLLocation(latitude: 37.801731, longitude: -122.265008)
-
+    
     var stations: [Station] = []
     
     @IBOutlet weak var mapUIView: UIView!
@@ -72,9 +72,14 @@ class InitialViewController: UIViewController {
     
     func setGeoFence(){
         //radius is in meters
-        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(90, -122), radius: 100, identifier: "SF")
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(30, -122), radius: 1000, identifier: "SF")
         locationManager.startMonitoring(for: geofenceRegion)
         geofenceRegion.notifyOnEntry = true
+        let circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
+        circle.fillColor = UIColor(white:0.7,alpha:0.5)
+        circle.strokeWidth = 3;
+        circle.strokeColor = UIColor.gray
+        circle.map = mapView
         print(geofenceRegion.identifier)
     }
     
@@ -114,7 +119,15 @@ class InitialViewController: UIViewController {
             }
         }
     }
-
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        // Update the app interface directly.
+        
+        // Play a sound.
+        completionHandler(UNNotificationPresentationOptions.sound)
+    }
 }
 
 extension InitialViewController: CLLocationManagerDelegate {
