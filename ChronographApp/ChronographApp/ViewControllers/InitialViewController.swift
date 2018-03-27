@@ -48,12 +48,14 @@ class InitialViewController: UIViewController {
         mapUIView.addSubview(mapView)
         mapView.isHidden = true
         
+        print("calling listBartStations")
         BartAPIManager().listBartStations{ (stations: [Station]?, error: Error?) in
             if let stations = stations {
-//                self.movies = movies
-//                self.tableView.reloadData()
+                self.stations = stations
             }
         }
+        print(stations)
+        print("end call listBartStations")
     }
 
     override func didReceiveMemoryWarning() {

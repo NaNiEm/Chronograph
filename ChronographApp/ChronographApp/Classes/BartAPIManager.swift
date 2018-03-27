@@ -19,23 +19,19 @@ class BartAPIManager {
     
     func listBartStations(completion: @escaping ([Station]?, Error?) -> ()) {
         print("Start Bart API Call")
-            // link for list of BART stations (JSON) : http://api.bart.gov/api/stn.aspx?cmd=stns&key=QSBV-PVEA-9KET-DWE9&json=y
+        // link for list of BART stations (JSON) : http://api.bart.gov/api/stn.aspx?cmd=stns&key=QSBV-PVEA-9KET-DWE9&json=y
         let url = URL(string: BartAPIManager.baseURL + "cmd=stns&key=\(BartAPIManager.apiKey)&json=y")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let task = session.dataTask(with: request) { (data, response, error) in
             // This will run when the network request returns
             if let data = data {
                 let dataDict = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-            
-                let stationDict = dataDict["root"] as! [String: Any]
-                let stationInfo = stationDict["stations"] as! [String: Any]
+                let rawDict = dataDict["root"] as! [String: Any]
+                let stationInfo = rawDict["stations"] as! [String: Any]
                 let stationList = stationInfo["station"] as! [[String: Any]]
-                print(stationList)
-                let stations = [Station()] // sending one station default construct
-//                        let movies = Movie.movies(dictionaries: movieDictionaries)
+                let stations = Station.stations(dicts: stationList)
                 completion(stations, nil)
             } else {
-                print("ERROR ", error)
                 completion(nil, error)
             }
         }

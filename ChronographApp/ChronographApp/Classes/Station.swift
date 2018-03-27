@@ -36,14 +36,37 @@ class Station {
     
     init(latitude: Float, longitude: Float, name: String, abbr: String, address: String, city: String,
          county: String, state: String, zipcode: String) {
-        self.latitude = latitude;
-        self.longitude = longitude;
-        self.name = name;
-        self.abbr = abbr;
-        self.address = address;
-        self.city = city;
-        self.county = county;
-        self.state = state;
-        self.zipcode = zipcode;
+        self.latitude = latitude
+        self.longitude = longitude
+        self.name = name
+        self.abbr = abbr
+        self.address = address
+        self.city = city
+        self.county = county
+        self.state = state
+        self.zipcode = zipcode
+    }
+    
+    init(dict: [String: Any]) {
+        latitude = (dict["gtfs_latitude"] as! NSString).floatValue
+        longitude = (dict["gtfs_longitude"] as! NSString).floatValue
+        name = dict["name"] as! String
+        abbr = dict["abbr"] as! String
+        address = dict["address"] as! String
+        city = dict["city"] as! String
+        county = dict["county"] as! String
+        state = dict["state"] as! String
+        zipcode = dict["zipcode"] as! String
+    }
+    
+    class func stations(dicts: [[String: Any]]) -> [Station] {
+        var stations: [Station] = []
+        for dict in dicts {
+            let station = Station(dict: dict)
+            print("station: ", station)
+            stations.append(station)
+        }
+        
+        return stations
     }
 }
