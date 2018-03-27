@@ -19,7 +19,7 @@ class InitialViewController: UIViewController {
     var placesClient: GMSPlacesClient!
     var zoomLevel: Float = 15.0
     var selectedPlace: GMSPlace?
-    let defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
+    let defaultLocation = CLLocation(latitude: 37.801731, longitude: -122.265008)
 
     var stations: [Station] = []
     
@@ -35,15 +35,13 @@ class InitialViewController: UIViewController {
         locationManager.delegate = self
         
         placesClient = GMSPlacesClient.shared()
-        
-        
+
         let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
                                               longitude: defaultLocation.coordinate.longitude,
                                               zoom: zoomLevel)
         mapView = GMSMapView.map(withFrame: mapUIView.bounds, camera: camera)
         mapView.settings.myLocationButton = true
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        //mapView.isMyLocationEnabled = true
         
         // Add the map to the view, hide it until we've got a location update.
         mapUIView.addSubview(mapView)
@@ -55,6 +53,11 @@ class InitialViewController: UIViewController {
     func plotStations(){
         for station in stations {
             print(station.name)
+            // TODO: make Station store CLLocationCoordinate2D or CLLocationDegrees
+            let marker = GMSMarker(position: (CLLocationCoordinate2D(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))))
+            marker.title = station.name
+            marker.snippet = station.address
+            marker.map = mapView
         }
     }
     func fetchBartList() {
@@ -79,7 +82,6 @@ extension InitialViewController: CLLocationManagerDelegate {
     // Handle incoming location events.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location: CLLocation = locations.last!
-//        print("Location: \(location)")
         currentLocation = location
         
         let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
@@ -94,8 +96,8 @@ extension InitialViewController: CLLocationManagerDelegate {
         }
         
         let marker = GMSMarker(position: (location.coordinate))
-        marker.title = "TEST"
-        marker.snippet = "test"
+        marker.title = "McDonalds"
+        marker.snippet = "1330 Jackson St"
         marker.map = mapView
     }
     
