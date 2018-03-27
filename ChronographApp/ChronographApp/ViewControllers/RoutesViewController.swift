@@ -31,9 +31,7 @@ class RoutesViewController: UIViewController, UITableViewDataSource {
         BartAPIManager().listBartStations{ (stations: [Station]?, error: Error?) in
             if let stations = stations {
                 self.stations = stations
-//                print(self.stations)
                 for station in stations{
-                    print(station)
                     self.tableView.reloadData()
                 }
             }
@@ -52,14 +50,4 @@ class RoutesViewController: UIViewController, UITableViewDataSource {
         
         return cell
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

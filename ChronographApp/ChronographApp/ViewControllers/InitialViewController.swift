@@ -52,7 +52,6 @@ class InitialViewController: UIViewController {
     }
     func plotStations(){
         for station in stations {
-            print(station.name)
             // TODO: make Station store CLLocationCoordinate2D or CLLocationDegrees
             let marker = GMSMarker(position: (CLLocationCoordinate2D(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))))
             marker.title = station.name
