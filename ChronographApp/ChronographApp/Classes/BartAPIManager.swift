@@ -25,13 +25,12 @@ class BartAPIManager {
         let task = session.dataTask(with: request) { (data, response, error) in
             // This will run when the network request returns
             if let data = data {
-                print("RESPONSE ", response)
-                print(data)
-//                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                
-//                print(dataDictionary)
-//                        let movieDictionaries = dataDictionary["results"] as! [[String: Any]]
-
+                let dataDict = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+            
+                let stationDict = dataDict["root"] as! [String: Any]
+                let stationInfo = stationDict["stations"] as! [String: Any]
+                let stationList = stationInfo["station"] as! [[String: Any]]
+                print(stationList)
                 let stations = [Station()] // sending one station default construct
 //                        let movies = Movie.movies(dictionaries: movieDictionaries)
                 completion(stations, nil)
