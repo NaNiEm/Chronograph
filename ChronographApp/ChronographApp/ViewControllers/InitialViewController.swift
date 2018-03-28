@@ -9,10 +9,9 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import UserNotifications
 
-
-
-class InitialViewController: UIViewController {
+class InitialViewController: UIViewController, GMSMapViewDelegate {
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     var mapView: GMSMapView!
@@ -20,7 +19,8 @@ class InitialViewController: UIViewController {
     var zoomLevel: Float = 15.0
     var selectedPlace: GMSPlace?
     let defaultLocation = CLLocation(latitude: 37.801731, longitude: -122.265008)
-
+    var stationName: String = ""
+    @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
     
     @IBOutlet weak var mapUIView: UIView!
@@ -46,9 +46,9 @@ class InitialViewController: UIViewController {
         // Add the map to the view, hide it until we've got a location update.
         mapUIView.addSubview(mapView)
         mapView.isHidden = true
-        
+        mapView.delegate = self
         fetchBartList()
-
+        
     }
     func plotStations(){
         for station in stations {
@@ -59,6 +59,40 @@ class InitialViewController: UIViewController {
             marker.map = mapView
         }
     }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+//        marker.icon =  self.imageWithImage(image: marker.icon!, scaledToSize: CGSize(width: 3.0, height: 3.0))
+        for station in stations{
+            if(marker.position.latitude == CLLocationDegrees(station.latitude) && marker.position.longitude == CLLocationDegrees(station.longitude)){
+                stationName = station.name
+            }
+        }
+        mapUIView.addSubview(self.SetDestView)
+        SetDestView.isHidden = false
+        return true
+    }
+    
+    func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        image.draw(in: CGRect(x:0, y:0, width: newSize.width, height:newSize.height))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!,
+                                              longitude: (locationManager.location?.coordinate.longitude)!,
+                                              zoom: zoomLevel)
+        print(locationManager.location?.coordinate.latitude)
+        self.mapView.camera = camera
+        return true
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        SetDestView.isHidden = true
+    }
+    
     func fetchBartList() {
         BartAPIManager().listBartStations{ (stations: [Station]?, error: Error?) in
             if let stations = stations {
@@ -67,13 +101,75 @@ class InitialViewController: UIViewController {
             }
         }
     }
-
+    
+    func setGeoFence(station: Station){
+        //radius is in meters. 130 m == .80 miles away
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(station.latitude), CLLocationDegrees(station.longitude)), radius: 130, identifier: "geoFence")
+        locationManager.startMonitoring(for: geofenceRegion)
+        geofenceRegion.notifyOnEntry = true
+        let circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
+        circle.fillColor = UIColor(white:0.7,alpha:0.5)
+        circle.strokeWidth = 1;
+        circle.strokeColor = UIColor.gray
+        circle.map = mapView
+        print(geofenceRegion.identifier)
+        print(geofenceRegion.center)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func setDestinationTapped(_ sender: Any) {
+        for station in stations{
+            if(stationName == station.name){
+                setGeoFence(station: station)
+            }
+        }
+        
+    }
+    func handleEvent(forRegion region: CLRegion!) {
+        
+        // customize your notification content
+        let content = UNMutableNotificationContent()
+        content.title = "Get Ready"
+        content.body = "Now approaching destination"
+        content.sound = UNNotificationSound.default()
+        
+        // when the notification will be triggered
+//        var timeInSeconds: TimeInterval = (60 * 15) // 60s * 15 = 15min
+        let timeInSeconds: TimeInterval = 1
+        // the actual trigger object
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInSeconds,
+                                                        repeats: false)
+        
+        // notification unique identifier, for this example, same as the region to avoid duplicate notifications
+        let identifier = region.identifier
+        
+        // the notification request object
+        let request = UNNotificationRequest(identifier: identifier,
+                                            content: content,
+                                            trigger: trigger)
+        print(content.title)
+        print(content.body)
+        // trying to add the notification request to notification center
+        let center = UNUserNotificationCenter.current()
+        center.add(request) { (error : Error?) in
+            if let theError = error {
+                print(theError.localizedDescription)
+            }
+        }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        // Update the app interface directly.
+        
+        // Play a sound.
+        completionHandler(UNNotificationPresentationOptions.sound)
+    }
 }
 
 extension InitialViewController: CLLocationManagerDelegate {
@@ -122,4 +218,14 @@ extension InitialViewController: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
         print("Error: \(error)")
     }
+    
+    // Handle when destination hits user parameter.
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+//        print(region.identifier)
+        if region is CLCircularRegion {
+            // Do what you want if this information
+            self.handleEvent(forRegion: region)
+        }
+    }
+    
 }

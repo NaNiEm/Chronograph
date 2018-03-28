@@ -28,6 +28,23 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BQB-vU-X3J">
                                 <rect key="frame" x="0.0" y="98" width="375" height="520"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FF4-fe-d5f">
+                                        <rect key="frame" x="100" y="470" width="175" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MD3-JS-RIb">
+                                                <rect key="frame" x="30" y="6" width="115" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Set Destination"/>
+                                                <connections>
+                                                    <action selector="setDestinationTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="acZ-Ce-4rd"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -36,6 +53,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="0Mb-OG-t4G"/>
                     <connections>
+                        <outlet property="SetDestView" destination="FF4-fe-d5f" id="ngh-Ek-Pyb"/>
                         <outlet property="mapUIView" destination="BQB-vU-X3J" id="Rhe-Pw-vEQ"/>
                     </connections>
                 </viewController>
