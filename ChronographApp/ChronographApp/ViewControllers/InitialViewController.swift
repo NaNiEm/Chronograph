@@ -11,7 +11,7 @@ import GoogleMaps
 import GooglePlaces
 import UserNotifications
 
-class InitialViewController: UIViewController {
+class InitialViewController: UIViewController, GMSMapViewDelegate {
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     var mapView: GMSMapView!
@@ -19,7 +19,8 @@ class InitialViewController: UIViewController {
     var zoomLevel: Float = 15.0
     var selectedPlace: GMSPlace?
     let defaultLocation = CLLocation(latitude: 37.801731, longitude: -122.265008)
-    
+    var stationName: String = ""
+    @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
     
     @IBOutlet weak var mapUIView: UIView!
@@ -45,9 +46,8 @@ class InitialViewController: UIViewController {
         // Add the map to the view, hide it until we've got a location update.
         mapUIView.addSubview(mapView)
         mapView.isHidden = true
-        
+        mapView.delegate = self
         fetchBartList()
-        
         
 
     }
@@ -59,7 +59,32 @@ class InitialViewController: UIViewController {
             marker.snippet = station.address
             marker.map = mapView
         }
-        setGeoFence()
+        
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        for station in stations{
+            if(marker.position.latitude == CLLocationDegrees(station.latitude) && marker.position.longitude == CLLocationDegrees(station.longitude)){
+                stationName = station.name
+            }
+        }
+        mapUIView.addSubview(self.SetDestView)
+        SetDestView.isHidden = false
+        return true
+    }
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!,
+                                              longitude: (locationManager.location?.coordinate.longitude)!,
+                                              zoom: zoomLevel)
+        print(locationManager.location?.coordinate.latitude)
+        self.mapView.camera = camera
+        return true
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        SetDestView.isHidden = true
     }
     
     func fetchBartList() {
@@ -71,10 +96,9 @@ class InitialViewController: UIViewController {
         }
     }
     
-    func setGeoFence(){
-        //radius is in meters
-        let stationTest: Station = stations[1]
-        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(stationTest.latitude), CLLocationDegrees(stationTest.longitude)), radius: 100, identifier: "SF")
+    func setGeoFence(station: Station){
+        //radius is in meters. 130 m == .80 miles away
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(station.latitude), CLLocationDegrees(station.longitude)), radius: 130, identifier: "SF")
         locationManager.startMonitoring(for: geofenceRegion)
         geofenceRegion.notifyOnEntry = true
         let circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
@@ -83,6 +107,7 @@ class InitialViewController: UIViewController {
         circle.strokeColor = UIColor.gray
         circle.map = mapView
         print(geofenceRegion.identifier)
+        print(geofenceRegion.center)
     }
     
     override func didReceiveMemoryWarning() {
@@ -90,6 +115,14 @@ class InitialViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func setDestinationTapped(_ sender: Any) {
+        for station in stations{
+            if(stationName == station.name){
+                setGeoFence(station: station)
+            }
+        }
+        
+    }
     func handleEvent(forRegion region: CLRegion!) {
         
         // customize your notification content
