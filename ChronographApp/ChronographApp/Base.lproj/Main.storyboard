@@ -26,7 +26,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BQB-vU-X3J">
-                                <rect key="frame" x="0.0" y="98" width="375" height="569"/>
+                                <rect key="frame" x="0.0" y="98" width="375" height="520"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
@@ -50,7 +50,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <pinchGestureRecognizer id="aLL-wI-Lwq"/>
             </objects>
-            <point key="canvasLocation" x="519" y="133"/>
+            <point key="canvasLocation" x="376.80000000000001" y="-823.53823088455783"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="e3O-bw-983">
@@ -70,7 +70,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Byf-N5-GIp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-161" y="133"/>
+            <point key="canvasLocation" x="-1585" y="-102"/>
         </scene>
         <!--Routes-->
         <scene sceneID="FAq-V9-IPF">
@@ -130,7 +130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vBo-fL-Icg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-160.80000000000001" y="826.23688155922048"/>
+            <point key="canvasLocation" x="377" y="706"/>
         </scene>
         <!--Profile-->
         <scene sceneID="dNP-dc-O6F">
@@ -200,7 +200,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E8G-Ob-znd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="517.60000000000002" y="825.33733133433293"/>
+            <point key="canvasLocation" x="377" y="-102"/>
         </scene>
     </scenes>
 </document>
