@@ -49,7 +49,6 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         mapView.delegate = self
         fetchBartList()
         
-
     }
     func plotStations(){
         for station in stations {
@@ -59,10 +58,10 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
             marker.snippet = station.address
             marker.map = mapView
         }
-        
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+//        marker.icon =  self.imageWithImage(image: marker.icon!, scaledToSize: CGSize(width: 3.0, height: 3.0))
         for station in stations{
             if(marker.position.latitude == CLLocationDegrees(station.latitude) && marker.position.longitude == CLLocationDegrees(station.longitude)){
                 stationName = station.name
@@ -73,8 +72,15 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         return true
     }
     
+    func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        image.draw(in: CGRect(x:0, y:0, width: newSize.width, height:newSize.height))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        
         let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!,
                                               longitude: (locationManager.location?.coordinate.longitude)!,
                                               zoom: zoomLevel)
@@ -98,7 +104,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     
     func setGeoFence(station: Station){
         //radius is in meters. 130 m == .80 miles away
-        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(station.latitude), CLLocationDegrees(station.longitude)), radius: 130, identifier: "SF")
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(station.latitude), CLLocationDegrees(station.longitude)), radius: 130, identifier: "geoFence")
         locationManager.startMonitoring(for: geofenceRegion)
         geofenceRegion.notifyOnEntry = true
         let circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
@@ -146,6 +152,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
                                             content: content,
                                             trigger: trigger)
         print(content.title)
+        print(content.body)
         // trying to add the notification request to notification center
         let center = UNUserNotificationCenter.current()
         center.add(request) { (error : Error?) in
