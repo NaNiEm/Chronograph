@@ -170,6 +170,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         // Play a sound.
         completionHandler(UNNotificationPresentationOptions.sound)
     }
+
 }
 
 extension InitialViewController: CLLocationManagerDelegate {
