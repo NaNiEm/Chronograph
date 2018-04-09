@@ -28,8 +28,8 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     var stations: [Station] = []
     @IBOutlet weak var setOrRemoveDestinationButton: UIButton!
     @IBOutlet weak var stationNameLabel: UILabel!
-    
-    
+    //place holder geofence region
+    var circle = GMSCircle(position: CLLocationCoordinate2D(latitude: 37.801731, longitude: -122.265008), radius: 130)
     @IBOutlet weak var mapUIView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,9 +124,9 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         print("setting geo fence!")
         //radius is in meters. 130 m == .80 miles away
         let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
-        locationManager.startMonitoring(for: geofenceRegion)
+        self.locationManager.startMonitoring(for: geofenceRegion)
         geofenceRegion.notifyOnEntry = true
-        let circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
+        circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
         circle.fillColor = UIColor(white:0.7,alpha:0.5)
         circle.strokeWidth = 1;
         circle.strokeColor = UIColor.gray
@@ -140,7 +140,9 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         hasSetAsDestination[destinationStationIndex] = false
         //radius is in meters. 130 m == .80 miles away
         let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
-        locationManager.stopMonitoring(for: geofenceRegion)
+        circle.map = nil
+        self.locationManager.stopMonitoring(for: geofenceRegion)
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -149,7 +151,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     
     @IBAction func setDestinationTapped(_ sender: Any) {
         var i = 0
-        print("TApping")
+        print("Tapping")
         for station in stations{
             if(stationName == station.name){
                 if(hasSetAsDestination[i] == false){ //if it's not the current destination
@@ -167,11 +169,11 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
                     removeGeoFence(destination: self.destinationLocation)
                     destinationLocation = nil
                     setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
+                    isFirstTimeSetting = true
                 }
             }
             i += 1
         }
-        
     }
     func handleEvent(forRegion region: CLRegion!) {
         
