@@ -120,6 +120,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func setGeoFence(destination: CLLocation){
+        hasSetAsDestination[destinationStationIndex] = true
         print("setting geo fence!")
         //radius is in meters. 130 m == .80 miles away
         let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
@@ -136,13 +137,10 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     
     func removeGeoFence(destination: CLLocation){
         print("removing geo fence!")
+        hasSetAsDestination[destinationStationIndex] = false
         //radius is in meters. 130 m == .80 miles away
         let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
         locationManager.stopMonitoring(for: geofenceRegion)
-        for region in locationManager.monitoredRegions{
-            guard let circularRegion = region as? CLCircularRegion, circularRegion.identifier == geofenceRegion.identifier else { continue }
-            locationManager.stopMonitoring(for: circularRegion)
-        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -155,19 +153,19 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         for station in stations{
             if(stationName == station.name){
                 if(hasSetAsDestination[i] == false){ //if it's not the current destination
-                    if(!isFirstTimeSetting){
+                    if(!isFirstTimeSetting){ //if it already has a destination set before this
                         removeGeoFence(destination: destinationLocation)
                     }
+                    destinationStationIndex = i
                     self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
                     setGeoFence(destination: self.destinationLocation)
-                    hasSetAsDestination[i] = true
                     setOrRemoveDestinationButton.setTitle("Rmv Destination", for: .normal)
                     isFirstTimeSetting = false
                 }
                 else{ //if it has been set as destination
-                    hasSetAsDestination[i] = false
                     self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
                     removeGeoFence(destination: self.destinationLocation)
+                    destinationLocation = nil
                     setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
                 }
             }
