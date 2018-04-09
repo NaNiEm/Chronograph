@@ -5,9 +5,9 @@
 ## User Stories
 The following are **core** user stories:
 
-- [ ] User can see a map with pre-set train station (Bart / Caltrain) pins.
-- [ ] User can set a designated location by picking and setting a pin as a destination.
-- [ ] User can toggle between list view and map view.
+- [x] User can see a map with pre-set train station (Bart / Caltrain) pins.
+- [x] User can set a designated location by picking and setting a pin as a destination.
+- [x] User can toggle between list view and map view.
 - [ ] User can see ETA and distance left.
 - [ ] User can receive a sound notification as default or when necessary.
 - [ ] User can change the type of alarm they would receive (vibrate, sound, banner).
@@ -28,7 +28,7 @@ The following are **optional** user stories:
 
 A walkthrough of our project will be viewable here.
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='chrono.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 # Considerations

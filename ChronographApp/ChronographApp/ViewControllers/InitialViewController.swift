@@ -28,7 +28,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     var stations: [Station] = []
     @IBOutlet weak var setOrRemoveDestinationButton: UIButton!
     @IBOutlet weak var stationNameLabel: UILabel!
-    //place holder geofence region
+    //place holder values
     var circle = GMSCircle(position: CLLocationCoordinate2D(latitude: 37.801731, longitude: -122.265008), radius: 130)
     @IBOutlet weak var mapUIView: UIView!
     override func viewDidLoad() {
