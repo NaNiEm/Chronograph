@@ -19,14 +19,18 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     var zoomLevel: Float = 15.0
     var selectedPlace: GMSPlace?
     let defaultLocation = CLLocation(latitude: 37.801731, longitude: -122.265008)
+    var destinationLocation: CLLocation!
+    var destinationStationIndex: Int = 0
+    var hasSetAsDestination: [Bool] = []
     var stationName: String = ""
+    var isFirstTimeSetting: Bool = true
     @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
+    @IBOutlet weak var setOrRemoveDestinationButton: UIButton!
     
     @IBOutlet weak var mapUIView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -50,6 +54,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         fetchBartList()
         
     }
+    
     func plotStations(){
         for station in stations {
             // TODO: make Station store CLLocationCoordinate2D or CLLocationDegrees
@@ -57,15 +62,24 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
             marker.title = station.name
             marker.snippet = station.address
             marker.map = mapView
+            hasSetAsDestination.append(false)
         }
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
 //        marker.icon =  self.imageWithImage(image: marker.icon!, scaledToSize: CGSize(width: 3.0, height: 3.0))
+        var i = 0
         for station in stations{
             if(marker.position.latitude == CLLocationDegrees(station.latitude) && marker.position.longitude == CLLocationDegrees(station.longitude)){
+                if(hasSetAsDestination[i] == true){
+                    setOrRemoveDestinationButton.setTitle("Rmv Destination", for: .normal)
+                }
+                else{
+                    setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
+                }
                 stationName = station.name
             }
+            i+=1
         }
         mapUIView.addSubview(self.SetDestView)
         SetDestView.isHidden = false
@@ -79,7 +93,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         UIGraphicsEndImageContext()
         return newImage
     }
-    
+    //This is only for simulators
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!,
                                               longitude: (locationManager.location?.coordinate.longitude)!,
@@ -102,9 +116,10 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         }
     }
     
-    func setGeoFence(station: Station){
+    func setGeoFence(destination: CLLocation){
+        print("setting geo fence!")
         //radius is in meters. 130 m == .80 miles away
-        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(station.latitude), CLLocationDegrees(station.longitude)), radius: 130, identifier: "geoFence")
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.latitude)), radius: 130, identifier: "geoFence")
         locationManager.startMonitoring(for: geofenceRegion)
         geofenceRegion.notifyOnEntry = true
         let circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
@@ -116,16 +131,43 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         print(geofenceRegion.center)
     }
     
+    func removeGeoFence(destination: CLLocation){
+        print("removing geo fence!")
+        //radius is in meters. 130 m == .80 miles away
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.latitude)), radius: 130, identifier: "geoFence")
+        locationManager.stopMonitoring(for: geofenceRegion)
+        for region in locationManager.monitoredRegions{
+            guard let circularRegion = region as? CLCircularRegion, circularRegion.identifier == geofenceRegion.identifier else { continue }
+            locationManager.stopMonitoring(for: circularRegion)
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func setDestinationTapped(_ sender: Any) {
+        var i = 0
         for station in stations{
             if(stationName == station.name){
-                setGeoFence(station: station)
+                if(hasSetAsDestination[i] == false){ //if it's not the current destination
+                    if(!isFirstTimeSetting){
+                        removeGeoFence(destination: destinationLocation)
+                    }
+                    self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
+                    setGeoFence(destination: self.destinationLocation)
+                    hasSetAsDestination[i] = true
+                    setOrRemoveDestinationButton.setTitle("Rmv Destination", for: .normal)
+                    isFirstTimeSetting = false
+                }
+                else{ //if it has been set as destination
+                    hasSetAsDestination[i] = false
+                    self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
+                    removeGeoFence(destination: self.destinationLocation)
+                    setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
+                }
             }
+            i += 1
         }
         
     }
