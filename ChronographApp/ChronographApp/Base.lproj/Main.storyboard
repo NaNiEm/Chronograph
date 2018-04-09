@@ -30,7 +30,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FF4-fe-d5f">
-                                        <rect key="frame" x="100" y="470" width="175" height="42"/>
+                                        <rect key="frame" x="100" y="437" width="175" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MD3-JS-RIb">
@@ -41,6 +41,13 @@
                                                     <action selector="setDestinationTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="acZ-Ce-4rd"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Station Name Right Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uPt-hm-BXg">
+                                                <rect key="frame" x="9" y="38" width="158" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
@@ -63,6 +70,8 @@
                     <connections>
                         <outlet property="SetDestView" destination="FF4-fe-d5f" id="ngh-Ek-Pyb"/>
                         <outlet property="mapUIView" destination="BQB-vU-X3J" id="Rhe-Pw-vEQ"/>
+                        <outlet property="setOrRemoveDestinationButton" destination="MD3-JS-RIb" id="0lO-dF-aSN"/>
+                        <outlet property="stationNameLabel" destination="uPt-hm-BXg" id="sag-u4-iuf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
