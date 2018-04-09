@@ -122,7 +122,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     func setGeoFence(destination: CLLocation){
         print("setting geo fence!")
         //radius is in meters. 130 m == .80 miles away
-        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.latitude)), radius: 130, identifier: "geoFence")
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
         locationManager.startMonitoring(for: geofenceRegion)
         geofenceRegion.notifyOnEntry = true
         let circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
@@ -137,7 +137,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     func removeGeoFence(destination: CLLocation){
         print("removing geo fence!")
         //radius is in meters. 130 m == .80 miles away
-        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.latitude)), radius: 130, identifier: "geoFence")
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
         locationManager.stopMonitoring(for: geofenceRegion)
         for region in locationManager.monitoredRegions{
             guard let circularRegion = region as? CLCircularRegion, circularRegion.identifier == geofenceRegion.identifier else { continue }
