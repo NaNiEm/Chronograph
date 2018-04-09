@@ -27,6 +27,8 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
     @IBOutlet weak var setOrRemoveDestinationButton: UIButton!
+    @IBOutlet weak var stationNameLabel: UILabel!
+    
     
     @IBOutlet weak var mapUIView: UIView!
     override func viewDidLoad() {
@@ -77,6 +79,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
                 else{
                     setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
                 }
+                stationNameLabel.text = station.name
                 stationName = station.name
             }
             i+=1
@@ -148,6 +151,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     
     @IBAction func setDestinationTapped(_ sender: Any) {
         var i = 0
+        print("TApping")
         for station in stations{
             if(stationName == station.name){
                 if(hasSetAsDestination[i] == false){ //if it's not the current destination
