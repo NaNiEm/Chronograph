@@ -240,7 +240,7 @@ extension InitialViewController: CLLocationManagerDelegate {
         let marker = GMSMarker(position: (location.coordinate))
         marker.title = "McDonalds"
         marker.snippet = "1330 Jackson St"
-//        marker.icon = UIImage(named: "blue_dot")
+        marker.icon = UIImage(named: "blue_dot")
         marker.map = mapView
     }
     
