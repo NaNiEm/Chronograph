@@ -19,14 +19,20 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     var zoomLevel: Float = 15.0
     var selectedPlace: GMSPlace?
     let defaultLocation = CLLocation(latitude: 37.801731, longitude: -122.265008)
+    var destinationLocation: CLLocation!
+    var destinationStationIndex: Int = 0
+    var hasSetAsDestination: [Bool] = []
     var stationName: String = ""
+    var isFirstTimeSetting: Bool = true
     @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
-    
+    @IBOutlet weak var setOrRemoveDestinationButton: UIButton!
+    @IBOutlet weak var stationNameLabel: UILabel!
+    //place holder values
+    var circle = GMSCircle(position: CLLocationCoordinate2D(latitude: 37.801731, longitude: -122.265008), radius: 130)
     @IBOutlet weak var mapUIView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -50,6 +56,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         fetchBartList()
         
     }
+    
     func plotStations(){
         for station in stations {
             // TODO: make Station store CLLocationCoordinate2D or CLLocationDegrees
@@ -57,15 +64,25 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
             marker.title = station.name
             marker.snippet = station.address
             marker.map = mapView
+            hasSetAsDestination.append(false)
         }
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
 //        marker.icon =  self.imageWithImage(image: marker.icon!, scaledToSize: CGSize(width: 3.0, height: 3.0))
+        var i = 0
         for station in stations{
             if(marker.position.latitude == CLLocationDegrees(station.latitude) && marker.position.longitude == CLLocationDegrees(station.longitude)){
+                if(hasSetAsDestination[i] == true){
+                    setOrRemoveDestinationButton.setTitle("Rmv Destination", for: .normal)
+                }
+                else{
+                    setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
+                }
+                stationNameLabel.text = station.name
                 stationName = station.name
             }
+            i+=1
         }
         mapUIView.addSubview(self.SetDestView)
         SetDestView.isHidden = false
@@ -79,7 +96,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         UIGraphicsEndImageContext()
         return newImage
     }
-    
+    //This is only for simulators
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!,
                                               longitude: (locationManager.location?.coordinate.longitude)!,
@@ -102,12 +119,14 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         }
     }
     
-    func setGeoFence(station: Station){
+    func setGeoFence(destination: CLLocation){
+        hasSetAsDestination[destinationStationIndex] = true
+        print("setting geo fence!")
         //radius is in meters. 130 m == .80 miles away
-        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(station.latitude), CLLocationDegrees(station.longitude)), radius: 130, identifier: "geoFence")
-        locationManager.startMonitoring(for: geofenceRegion)
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
+        self.locationManager.startMonitoring(for: geofenceRegion)
         geofenceRegion.notifyOnEntry = true
-        let circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
+        circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
         circle.fillColor = UIColor(white:0.7,alpha:0.5)
         circle.strokeWidth = 1;
         circle.strokeColor = UIColor.gray
@@ -116,18 +135,45 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         print(geofenceRegion.center)
     }
     
+    func removeGeoFence(destination: CLLocation){
+        print("removing geo fence!")
+        hasSetAsDestination[destinationStationIndex] = false
+        //radius is in meters. 130 m == .80 miles away
+        let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
+        circle.map = nil
+        self.locationManager.stopMonitoring(for: geofenceRegion)
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func setDestinationTapped(_ sender: Any) {
+        var i = 0
+        print("Tapping")
         for station in stations{
             if(stationName == station.name){
-                setGeoFence(station: station)
+                if(hasSetAsDestination[i] == false){ //if it's not the current destination
+                    if(!isFirstTimeSetting){ //if it already has a destination set before this
+                        removeGeoFence(destination: destinationLocation)
+                    }
+                    destinationStationIndex = i
+                    self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
+                    setGeoFence(destination: self.destinationLocation)
+                    setOrRemoveDestinationButton.setTitle("Rmv Destination", for: .normal)
+                    isFirstTimeSetting = false
+                }
+                else{ //if it has been set as destination
+                    self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
+                    removeGeoFence(destination: self.destinationLocation)
+                    destinationLocation = nil
+                    setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
+                    isFirstTimeSetting = true
+                }
             }
+            i += 1
         }
-        
     }
     func handleEvent(forRegion region: CLRegion!) {
         
