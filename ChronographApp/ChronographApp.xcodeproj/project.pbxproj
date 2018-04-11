@@ -682,7 +682,7 @@
 				DEVELOPMENT_TEAM = 56648RC6U2;
 				INFOPLIST_FILE = ChronographApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = codepath.ChronographApp;
+				PRODUCT_BUNDLE_IDENTIFIER = codepath.ChronographApp.NaNiEm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -698,7 +698,7 @@
 				DEVELOPMENT_TEAM = 56648RC6U2;
 				INFOPLIST_FILE = ChronographApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = codepath.ChronographApp;
+				PRODUCT_BUNDLE_IDENTIFIER = codepath.ChronographApp.NaNiEm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
