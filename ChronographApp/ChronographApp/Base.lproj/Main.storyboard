@@ -44,6 +44,10 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="0Kj-oo-c4l">
+                                        <rect key="frame" x="177" y="250" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
@@ -51,10 +55,6 @@
                                     <outletCollection property="gestureRecognizers" destination="aLL-wI-Lwq" appends="YES" id="Qce-9F-GWE"/>
                                 </connections>
                             </view>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Bm0-42-p49">
-                                <rect key="frame" x="177" y="323" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -62,6 +62,7 @@
                     <tabBarItem key="tabBarItem" title="Map" id="0Mb-OG-t4G"/>
                     <connections>
                         <outlet property="SetDestView" destination="FF4-fe-d5f" id="ngh-Ek-Pyb"/>
+                        <outlet property="activityIndicator" destination="0Kj-oo-c4l" id="lRU-bF-s52"/>
                         <outlet property="mapUIView" destination="BQB-vU-X3J" id="Rhe-Pw-vEQ"/>
                     </connections>
                 </viewController>
