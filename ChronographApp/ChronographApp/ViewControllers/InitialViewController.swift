@@ -150,6 +150,15 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     }
     
     @IBAction func setDestinationTapped(_ sender: Any) {
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings { (settings) in
+            if settings.authorizationStatus != .authorized {
+                // Notifications not allowed
+                print("nah ah ah!")
+                return;
+            }
+        }
+        
         var i = 0
         print("Tapping")
         for station in stations{
@@ -185,7 +194,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         
         // when the notification will be triggered
 //        var timeInSeconds: TimeInterval = (60 * 15) // 60s * 15 = 15min
-        let timeInSeconds: TimeInterval = 1
+        let timeInSeconds: TimeInterval = 0
         // the actual trigger object
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInSeconds,
                                                         repeats: false)
@@ -202,6 +211,8 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         // trying to add the notification request to notification center
         let center = UNUserNotificationCenter.current()
         center.add(request) { (error : Error?) in
+            print("notification added")
+
             if let theError = error {
                 print(theError.localizedDescription)
             }
