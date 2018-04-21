@@ -8,16 +8,13 @@
 
 import UIKit
 
-class RoutesViewController: UIViewController, UITableViewDataSource {
-
-    @IBOutlet weak var tableView: UITableView!
+class RoutesViewController: UIViewController {
     
     var stations: [Station] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        tableView.dataSource = self
         fetchBartList()
     }
 
@@ -32,22 +29,9 @@ class RoutesViewController: UIViewController, UITableViewDataSource {
             if let stations = stations {
                 self.stations = stations
                 for station in stations{
-                    self.tableView.reloadData()
                 }
             }
         }
         print("end call listBartStations")
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stations.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StationTableViewCell", for: indexPath) as! StationTableViewCell
-        
-        cell.station = stations[indexPath.row]
-        
-        return cell
     }
 }

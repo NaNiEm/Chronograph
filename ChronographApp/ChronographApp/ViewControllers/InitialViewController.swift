@@ -24,8 +24,11 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     var hasSetAsDestination: [Bool] = []
     var stationName: String = ""
     var isFirstTimeSetting: Bool = true
+    var polyline: GMSPolyline!
     @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
+
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var setOrRemoveDestinationButton: UIButton!
     @IBOutlet weak var stationNameLabel: UILabel!
     //place holder values
@@ -33,6 +36,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var mapUIView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.startAnimating()
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -54,8 +58,22 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         mapView.isHidden = true
         mapView.delegate = self
         fetchBartList()
-        
+//        setLines()
     }
+    
+//    func setLines(){
+//        let orangeO = stations["Richmond"]
+//        let orangeD = stations["Warm Springs/South Fremont"]
+//        let yellowO = stations["Pittsburg/Bay Point"]
+//        let yellowD = stations["SFO/Millbrae"]
+//        let greenO = stations["Warm Springs/South Fremont"]
+//        let greenD = stations["Daly City"]
+//        let redO = stations["Richmond"]
+//        let redD = stations["Millbrae"]
+//        let blueO =
+//        let blueD =
+//        getPolylineRoute(from: <#T##CLLocationCoordinate2D#>, to: <#T##CLLocationCoordinate2D#>)
+//    }
     
     func plotStations(){
         for station in stations {
@@ -143,6 +161,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         circle.map = nil
         self.locationManager.stopMonitoring(for: geofenceRegion)
         
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -157,12 +176,16 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
                 if(hasSetAsDestination[i] == false){ //if it's not the current destination
                     if(!isFirstTimeSetting){ //if it already has a destination set before this
                         removeGeoFence(destination: destinationLocation)
+                        polyline.map = nil
                     }
                     destinationStationIndex = i
                     self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
                     setGeoFence(destination: self.destinationLocation)
                     setOrRemoveDestinationButton.setTitle("Rmv Destination", for: .normal)
                     isFirstTimeSetting = false
+                    let destination = destinationLocation.coordinate
+                    let origin = defaultLocation.coordinate
+                    self.getPolylineRoute(from: origin, to: destination)
                 }
                 else{ //if it has been set as destination
                     self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
@@ -170,11 +193,88 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
                     destinationLocation = nil
                     setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
                     isFirstTimeSetting = true
+                    removePath()
                 }
             }
             i += 1
         }
     }
+    
+    func getPolylineRoute(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D){
+        
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(destination.latitude),\(destination.longitude)&sensor=true&mode=transit&key=AIzaSyAR-HPSnLwn4pdl_KjzNvuJ7KmWkM4yoDY")!
+        
+        let task = session.dataTask(with: url, completionHandler: {
+            (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+                self.activityIndicator.stopAnimating()
+            }
+            else {
+                do {
+                    if let json : [String:Any] = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]{
+                        
+                        print(json)
+                        guard let routes = json["routes"] as? NSArray else {
+                            DispatchQueue.main.async {
+                                self.activityIndicator.stopAnimating()
+                            }
+                            return
+                        }
+                        print("printing routes")
+                        print(routes)
+                        if (routes.count > 0) {
+                            let overview_polyline = routes[0] as? NSDictionary
+                            let dictPolyline = overview_polyline?["overview_polyline"] as? NSDictionary
+                            
+                            let points = dictPolyline?.object(forKey: "points") as? String
+                            print("printing points")
+                            print(points!)
+                            self.showPath(polyStr: points!)
+                            
+                            DispatchQueue.main.async {
+//                                self.activityIndicator.stopAnimating()
+                                
+                                let bounds = GMSCoordinateBounds(coordinate: source, coordinate: destination)
+                                let update = GMSCameraUpdate.fit(bounds, with: UIEdgeInsetsMake(170, 30, 30, 30))
+                                self.mapView!.moveCamera(update)
+                            }
+                        }
+                        else {
+                            DispatchQueue.main.async {
+                                self.activityIndicator.stopAnimating()
+                            }
+                        }
+                    }
+                }
+                catch {
+                    print("error in JSONSerialization")
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                    }
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    func showPath(polyStr :String){
+        DispatchQueue.main.async {
+            let path = GMSPath(fromEncodedPath: polyStr)
+            self.polyline = GMSPolyline(path: path)
+            self.polyline.strokeWidth = 3.0
+            self.polyline.strokeColor = UIColor.red
+            self.polyline.map = self.mapView // Your map view
+        }
+    }
+
+    func removePath(){
+        polyline.map = nil
+    }
+    
     func handleEvent(forRegion region: CLRegion!) {
         
         // customize your notification content
