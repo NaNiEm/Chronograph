@@ -24,6 +24,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     var hasSetAsDestination: [Bool] = []
     var stationName: String = ""
     var isFirstTimeSetting: Bool = true
+    var polyline: GMSPolyline!
     @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
 
@@ -57,13 +58,22 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         mapView.isHidden = true
         mapView.delegate = self
         fetchBartList()
-        let path = GMSMutablePath()
-        path.add(CLLocationCoordinate2D(latitude: -33.85, longitude: 151.20))
-        path.add(CLLocationCoordinate2D(latitude: -33.70, longitude: 151.40))
-        path.add(CLLocationCoordinate2D(latitude: -33.73, longitude: 151.41))
-        let polyline = GMSPolyline(path: path)
-        polyline.map = mapView
+//        setLines()
     }
+    
+//    func setLines(){
+//        let orangeO = stations["Richmond"]
+//        let orangeD = stations["Warm Springs/South Fremont"]
+//        let yellowO = stations["Pittsburg/Bay Point"]
+//        let yellowD = stations["SFO/Millbrae"]
+//        let greenO = stations["Warm Springs/South Fremont"]
+//        let greenD = stations["Daly City"]
+//        let redO = stations["Richmond"]
+//        let redD = stations["Millbrae"]
+//        let blueO =
+//        let blueD =
+//        getPolylineRoute(from: <#T##CLLocationCoordinate2D#>, to: <#T##CLLocationCoordinate2D#>)
+//    }
     
     func plotStations(){
         for station in stations {
@@ -151,6 +161,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         circle.map = nil
         self.locationManager.stopMonitoring(for: geofenceRegion)
         
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -165,12 +176,16 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
                 if(hasSetAsDestination[i] == false){ //if it's not the current destination
                     if(!isFirstTimeSetting){ //if it already has a destination set before this
                         removeGeoFence(destination: destinationLocation)
+                        polyline.map = nil
                     }
                     destinationStationIndex = i
                     self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
                     setGeoFence(destination: self.destinationLocation)
                     setOrRemoveDestinationButton.setTitle("Rmv Destination", for: .normal)
                     isFirstTimeSetting = false
+                    let destination = destinationLocation.coordinate
+                    let origin = defaultLocation.coordinate
+                    self.getPolylineRoute(from: origin, to: destination)
                 }
                 else{ //if it has been set as destination
                     self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
@@ -178,6 +193,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
                     destinationLocation = nil
                     setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
                     isFirstTimeSetting = true
+                    removePath()
                 }
             }
             i += 1
@@ -246,13 +262,18 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func showPath(polyStr :String){
-        let path = GMSPath(fromEncodedPath: polyStr)
-        let polyline = GMSPolyline(path: path)
-        polyline.strokeWidth = 10.0
-        polyline.strokeColor = UIColor.red
-        polyline.map = mapView // Your map view
+        DispatchQueue.main.async {
+            let path = GMSPath(fromEncodedPath: polyStr)
+            self.polyline = GMSPolyline(path: path)
+            self.polyline.strokeWidth = 3.0
+            self.polyline.strokeColor = UIColor.red
+            self.polyline.map = self.mapView // Your map view
+        }
     }
 
+    func removePath(){
+        polyline.map = nil
+    }
     
     func handleEvent(forRegion region: CLRegion!) {
         
