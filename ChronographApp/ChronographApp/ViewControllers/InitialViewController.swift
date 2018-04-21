@@ -81,11 +81,13 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
                 }
                 stationNameLabel.text = station.name
                 stationName = station.name
+                
+                mapUIView.addSubview(self.SetDestView)
+                SetDestView.isHidden = false
             }
             i+=1
+            
         }
-        mapUIView.addSubview(self.SetDestView)
-        SetDestView.isHidden = false
         return true
     }
     
@@ -121,7 +123,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     
     func setGeoFence(destination: CLLocation){
         hasSetAsDestination[destinationStationIndex] = true
-        print("setting geo fence!")
+//        print("setting geo fence!")
         //radius is in meters. 130 m == .80 miles away
         let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
         self.locationManager.startMonitoring(for: geofenceRegion)
@@ -154,13 +156,13 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         center.getNotificationSettings { (settings) in
             if settings.authorizationStatus != .authorized {
                 // Notifications not allowed
-                print("nah ah ah!")
+                print("This app can't run correctly because this app was not given permission to send notification.")
                 return;
             }
         }
         
         var i = 0
-        print("Tapping")
+//        print("Tapping")
         for station in stations{
             if(stationName == station.name){
                 if(hasSetAsDestination[i] == false){ //if it's not the current destination
@@ -194,7 +196,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         
         // when the notification will be triggered
 //        var timeInSeconds: TimeInterval = (60 * 15) // 60s * 15 = 15min
-        let timeInSeconds: TimeInterval = 0
+        let timeInSeconds: TimeInterval = 0.1
         // the actual trigger object
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInSeconds,
                                                         repeats: false)
@@ -206,13 +208,11 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         let request = UNNotificationRequest(identifier: identifier,
                                             content: content,
                                             trigger: trigger)
-        print(content.title)
-        print(content.body)
+//        print(content.title)
+//        print(content.body)
         // trying to add the notification request to notification center
         let center = UNUserNotificationCenter.current()
         center.add(request) { (error : Error?) in
-            print("notification added")
-
             if let theError = error {
                 print(theError.localizedDescription)
             }
