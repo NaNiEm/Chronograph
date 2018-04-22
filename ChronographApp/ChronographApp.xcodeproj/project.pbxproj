@@ -10,9 +10,11 @@
 		267611D2206A2E0B0061AAD0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267611D1206A2E0B0061AAD0 /* ProfileViewController.swift */; };
 		267611D4206A2E400061AAD0 /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267611D3206A2E400061AAD0 /* RoutesViewController.swift */; };
 		267611D7206A3BB80061AAD0 /* StationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267611D6206A3BB80061AAD0 /* StationCell.swift */; };
+		2695D8BA208C7EE500AA97F6 /* Hungaria.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2695D8B9208C7EE500AA97F6 /* Hungaria.mp3 */; };
 		26EFA3A2208BEFE700777C16 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA3A1208BEFE600777C16 /* Route.swift */; };
 		26EFA3A4208C1C7400777C16 /* LineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA3A3208C1C7400777C16 /* LineViewController.swift */; };
 		26EFA3A6208C203300777C16 /* CustomNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EFA3A5208C203300777C16 /* CustomNavBar.swift */; };
+		283B08FE208BC18300EE5CFF /* locationAlarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283B08FD208BC18300EE5CFF /* locationAlarm.swift */; };
 		6D28286ADBA8773F1FF5A52A /* Pods_ChronographAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5F5603AB0D8464A762121B /* Pods_ChronographAppUITests.framework */; };
 		84B3A177CA161BCA371AB047 /* Pods_ChronographAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546EFAD08BB76C59B40812DA /* Pods_ChronographAppTests.framework */; };
 		B86E63DD2069A8220097BEE5 /* BartAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E63DC2069A8220097BEE5 /* BartAPIManager.swift */; };
@@ -51,10 +53,12 @@
 		267611D1206A2E0B0061AAD0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		267611D3206A2E400061AAD0 /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
 		267611D6206A3BB80061AAD0 /* StationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationCell.swift; sourceTree = "<group>"; };
+		2695D8B9208C7EE500AA97F6 /* Hungaria.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Hungaria.mp3; path = ChronographApp/Hungaria.mp3; sourceTree = SOURCE_ROOT; };
 		26EFA3A1208BEFE600777C16 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		26EFA3A3208C1C7400777C16 /* LineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineViewController.swift; sourceTree = "<group>"; };
 		26EFA3A5208C203300777C16 /* CustomNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavBar.swift; sourceTree = "<group>"; };
 		27866F16E711A61B6C841155 /* Pods-ChronographAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographAppTests/Pods-ChronographAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		283B08FD208BC18300EE5CFF /* locationAlarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = locationAlarm.swift; sourceTree = "<group>"; };
 		50416F2B71083A9FF22A61B5 /* Pods_ChronographApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChronographApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		546EFAD08BB76C59B40812DA /* Pods_ChronographAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChronographAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8565E0E4441E7F47471D61F8 /* Pods-ChronographAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographAppTests/Pods-ChronographAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +119,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		283B0903208C3F8F00EE5CFF /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				2695D8B9208C7EE500AA97F6 /* Hungaria.mp3 */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
 		B1ABAB0514DFE42FE28E53FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +162,7 @@
 		B895AB9420589212004CB7A5 /* ChronographApp */ = {
 			isa = PBXGroup;
 			children = (
+				283B0903208C3F8F00EE5CFF /* SupportFiles */,
 				267611D5206A3B990061AAD0 /* Views */,
 				B895ABCC20589A51004CB7A5 /* Classes */,
 				B895ABCB20589A44004CB7A5 /* ViewControllers */,
@@ -199,6 +212,7 @@
 				B86E63DE2069A9670097BEE5 /* Station.swift */,
 				26EFA3A1208BEFE600777C16 /* Route.swift */,
 				26EFA3A5208C203300777C16 /* CustomNavBar.swift */,
+				283B08FD208BC18300EE5CFF /* locationAlarm.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -334,6 +348,7 @@
 			files = (
 				B895ABA020589212004CB7A5 /* LaunchScreen.storyboard in Resources */,
 				B895AB9D20589212004CB7A5 /* Assets.xcassets in Resources */,
+				2695D8BA208C7EE500AA97F6 /* Hungaria.mp3 in Resources */,
 				B895AB9B20589212004CB7A5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,6 +537,7 @@
 				26EFA3A2208BEFE700777C16 /* Route.swift in Sources */,
 				B86E63DD2069A8220097BEE5 /* BartAPIManager.swift in Sources */,
 				B895AB9620589212004CB7A5 /* AppDelegate.swift in Sources */,
+				283B08FE208BC18300EE5CFF /* locationAlarm.swift in Sources */,
 				B895ABC6205897CE004CB7A5 /* GoogleMapsAPIManager.swift in Sources */,
 				267611D4206A2E400061AAD0 /* RoutesViewController.swift in Sources */,
 			);

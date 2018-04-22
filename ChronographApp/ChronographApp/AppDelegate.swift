@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("AIzaSyCsiXLRfeicvlewhtRuHf0VnTNf4g5InLE")
         
         GMSPlacesClient.provideAPIKey("AIzaSyBG6gyjpiLao5S60A_DJcTUmo-UPera4AE")
+        
+        let center = UNUserNotificationCenter.current()
+        let options: UNAuthorizationOptions = [.alert, .sound];
+        center.requestAuthorization(options: options) {
+            (granted, error) in
+            if !granted {
+                print("You can't do that and have this app work!")
+            }
+        }
         
         return true
     }
