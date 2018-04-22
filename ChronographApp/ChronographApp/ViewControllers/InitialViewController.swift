@@ -11,13 +11,14 @@ import GoogleMaps
 import GooglePlaces
 import UserNotifications
 
-class InitialViewController: UIViewController, GMSMapViewDelegate {
-    var locationManager = CLLocationManager()
+class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarmDelegate{
+    
+    let locAlarm = locationAlarm.shared
     var currentLocation: CLLocation?
     var mapView: GMSMapView!
     var placesClient: GMSPlacesClient!
     var zoomLevel: Float = 15.0
-    var selectedPlace: GMSPlace?
+//    var selectedPlace: GMSPlace?
     let defaultLocation = CLLocation(latitude: 37.801731, longitude: -122.265008)
     var destinationLocation: CLLocation!
     var destinationStationIndex: Int = 0
@@ -27,25 +28,32 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     var polyline: GMSPolyline!
     @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
-
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var setOrRemoveDestinationButton: UIButton!
     @IBOutlet weak var stationNameLabel: UILabel!
     //place holder values
     var circle = GMSCircle(position: CLLocationCoordinate2D(latitude: 37.801731, longitude: -122.265008), radius: 130)
+    
     @IBOutlet weak var mapUIView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityIndicator.startAnimating()
-        locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.distanceFilter = 50
-        locationManager.startUpdatingLocation()
-        locationManager.delegate = self
         
-        placesClient = GMSPlacesClient.shared()
-
+        locAlarm.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setUIMapView(notification:)), name: NSNotification.Name(rawValue: "settingUp"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentLocationUpdated(notification:)), name: NSNotification.Name(rawValue: "updateCurrentLocation"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(alertUser(notification:)), name: NSNotification.Name(rawValue: "StartAlarm"), object: nil)
+        
+        activityIndicator.startAnimating()
+        
+        SetDestView.isHidden = true
+        
+        placesClient = GMSPlacesClient.shared() // ?
+    }
+    
+    @objc func setUIMapView(notification: NSNotification){
+        
+        //TODO: Camera settings should have an if statement saying if a current location is detected, change camera view to that, otherwise, set it to the default one that was hard coded
         let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
                                               longitude: defaultLocation.coordinate.longitude,
                                               zoom: zoomLevel)
@@ -55,25 +63,24 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         
         // Add the map to the view, hide it until we've got a location update.
         mapUIView.addSubview(mapView)
-        mapView.isHidden = true
         mapView.delegate = self
+        
+        if mapView.isHidden {
+            mapView.isHidden = false
+            mapView.camera = camera
+        } else {
+            mapView.animate(to: camera)
+        }
+        
         fetchBartList()
-//        setLines()
     }
     
-//    func setLines(){
-//        let orangeO = stations["Richmond"]
-//        let orangeD = stations["Warm Springs/South Fremont"]
-//        let yellowO = stations["Pittsburg/Bay Point"]
-//        let yellowD = stations["SFO/Millbrae"]
-//        let greenO = stations["Warm Springs/South Fremont"]
-//        let greenD = stations["Daly City"]
-//        let redO = stations["Richmond"]
-//        let redD = stations["Millbrae"]
-//        let blueO =
-//        let blueD =
-//        getPolylineRoute(from: <#T##CLLocationCoordinate2D#>, to: <#T##CLLocationCoordinate2D#>)
-//    }
+    // EMILY: This is where you should be setting the marker for the current location.
+    // This is also where you can set up the simulation of the marker moving in a loop
+    // change location.coordinate -> locAlarm.getCurrentLocation()
+    @objc func currentLocationUpdated(notification: NSNotification){
+        
+    }
     
     func plotStations(){
         for station in stations {
@@ -87,7 +94,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-//        marker.icon =  self.imageWithImage(image: marker.icon!, scaledToSize: CGSize(width: 3.0, height: 3.0))
+        
         var i = 0
         for station in stations{
             if(marker.position.latitude == CLLocationDegrees(station.latitude) && marker.position.longitude == CLLocationDegrees(station.longitude)){
@@ -99,31 +106,26 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
                 }
                 stationNameLabel.text = station.name
                 stationName = station.name
+                
+                mapUIView.addSubview(self.SetDestView)
+                SetDestView.isHidden = false
             }
             i+=1
         }
-        mapUIView.addSubview(self.SetDestView)
-        SetDestView.isHidden = false
+        
         return true
     }
     
-    func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        image.draw(in: CGRect(x:0, y:0, width: newSize.width, height:newSize.height))
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return newImage
-    }
     //This is only for simulators
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!,
-                                              longitude: (locationManager.location?.coordinate.longitude)!,
+        let camera = GMSCameraPosition.camera(withLatitude: (locAlarm.getCurrentLocation().latitude),
+                                              longitude: (locAlarm.getCurrentLocation().longitude),
                                               zoom: zoomLevel)
-        print(locationManager.location?.coordinate.latitude)
+        print(locAlarm.getLocationManager().location?.coordinate.latitude)
         self.mapView.camera = camera
         return true
     }
-    
+
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         SetDestView.isHidden = true
     }
@@ -142,32 +144,31 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         print("setting geo fence!")
         //radius is in meters. 130 m == .80 miles away
         let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
-        self.locationManager.startMonitoring(for: geofenceRegion)
+        locAlarm.getLocationManager().startMonitoring(for: geofenceRegion)
         geofenceRegion.notifyOnEntry = true
         circle = GMSCircle(position: geofenceRegion.center, radius: geofenceRegion.radius)
         circle.fillColor = UIColor(white:0.7,alpha:0.5)
         circle.strokeWidth = 1;
         circle.strokeColor = UIColor.gray
         circle.map = mapView
-        print(geofenceRegion.identifier)
         print(geofenceRegion.center)
     }
-    
+
     func removeGeoFence(destination: CLLocation){
         print("removing geo fence!")
         hasSetAsDestination[destinationStationIndex] = false
         //radius is in meters. 130 m == .80 miles away
         let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
         circle.map = nil
-        self.locationManager.stopMonitoring(for: geofenceRegion)
-        
-        
+        locAlarm.getLocationManager().stopMonitoring(for: geofenceRegion)
+
+
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     @IBAction func setDestinationTapped(_ sender: Any) {
         var i = 0
         print("Tapping")
@@ -199,14 +200,14 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
             i += 1
         }
     }
-    
+
     func getPolylineRoute(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D){
-        
+
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-        
+
         let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(destination.latitude),\(destination.longitude)&sensor=true&mode=transit&key=AIzaSyAR-HPSnLwn4pdl_KjzNvuJ7KmWkM4yoDY")!
-        
+
         let task = session.dataTask(with: url, completionHandler: {
             (data, response, error) in
             if error != nil {
@@ -216,28 +217,28 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
             else {
                 do {
                     if let json : [String:Any] = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]{
-                        
-                        print(json)
+
+//                        print(json)
                         guard let routes = json["routes"] as? NSArray else {
                             DispatchQueue.main.async {
                                 self.activityIndicator.stopAnimating()
                             }
                             return
                         }
-                        print("printing routes")
-                        print(routes)
+//                        print("printing routes")
+//                        print(routes)
                         if (routes.count > 0) {
                             let overview_polyline = routes[0] as? NSDictionary
                             let dictPolyline = overview_polyline?["overview_polyline"] as? NSDictionary
-                            
+
                             let points = dictPolyline?.object(forKey: "points") as? String
-                            print("printing points")
-                            print(points!)
+//                            print("printing points")
+//                            print(points!)
                             self.showPath(polyStr: points!)
-                            
+
                             DispatchQueue.main.async {
 //                                self.activityIndicator.stopAnimating()
-                                
+
                                 let bounds = GMSCoordinateBounds(coordinate: source, coordinate: destination)
                                 let update = GMSCameraUpdate.fit(bounds, with: UIEdgeInsetsMake(170, 30, 30, 30))
                                 self.mapView!.moveCamera(update)
@@ -260,7 +261,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         })
         task.resume()
     }
-    
+
     func showPath(polyStr :String){
         DispatchQueue.main.async {
             let path = GMSPath(fromEncodedPath: polyStr)
@@ -275,104 +276,18 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         polyline.map = nil
     }
     
-    func handleEvent(forRegion region: CLRegion!) {
-        
-        // customize your notification content
-        let content = UNMutableNotificationContent()
-        content.title = "Get Ready"
-        content.body = "Now approaching destination"
-        content.sound = UNNotificationSound.default()
-        
-        // when the notification will be triggered
-//        var timeInSeconds: TimeInterval = (60 * 15) // 60s * 15 = 15min
-        let timeInSeconds: TimeInterval = 1
-        // the actual trigger object
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInSeconds,
-                                                        repeats: false)
-        
-        // notification unique identifier, for this example, same as the region to avoid duplicate notifications
-        let identifier = region.identifier
-        
-        // the notification request object
-        let request = UNNotificationRequest(identifier: identifier,
-                                            content: content,
-                                            trigger: trigger)
-        print(content.title)
-        print(content.body)
-        // trying to add the notification request to notification center
-        let center = UNUserNotificationCenter.current()
-        center.add(request) { (error : Error?) in
-            if let theError = error {
-                print(theError.localizedDescription)
-            }
-        }
+    @objc func alertUser(notification: NSNotification){
+        let alert = UIAlertController(title: "Wake Up!", message: "Pack up and get ready to get off the upcoming station.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "StopAlarm"), object: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        // Update the app interface directly.
-        
-        // Play a sound.
-        completionHandler(UNNotificationPresentationOptions.sound)
-    }
-
-}
-
-extension InitialViewController: CLLocationManagerDelegate {
-    
-    // Handle incoming location events.
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location: CLLocation = locations.last!
+    //added for protocol
+    func locationDidUpdateToLocation(location: CLLocation) {
         currentLocation = location
-        
-        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-                                              longitude: location.coordinate.longitude,
-                                              zoom: zoomLevel)
-        
-        if mapView.isHidden {
-            mapView.isHidden = false
-            mapView.camera = camera
-        } else {
-            mapView.animate(to: camera)
-        }
-        
-        let marker = GMSMarker(position: (location.coordinate))
-        marker.title = "McDonalds"
-        marker.snippet = "1330 Jackson St"
-        marker.map = mapView
     }
-    
-    // Handle authorization for the location manager.
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .restricted:
-            print("Location access was restricted.")
-        case .denied:
-            print("User denied access to location.")
-            // Display the map using the default location.
-            mapView.isHidden = false
-        case .notDetermined:
-            print("Location status not determined.")
-        case .authorizedAlways: fallthrough
-        case .authorizedWhenInUse:
-            print("Location status is OK.")
-        }
-    }
-    
-    // Handle location manager errors.
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        locationManager.stopUpdatingLocation()
-        print("Error: \(error)")
-    }
-    
-    // Handle when destination hits user parameter.
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-//        print(region.identifier)
-        if region is CLCircularRegion {
-            // Do what you want if this information
-            self.handleEvent(forRegion: region)
-        }
-    }
-    
+
 }
+
