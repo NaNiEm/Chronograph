@@ -16,9 +16,9 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     var currentLocation: CLLocation?
     var mapView: GMSMapView!
     var placesClient: GMSPlacesClient!
-    var zoomLevel: Float = 15.0
+    var zoomLevel: Float = 10.0
     var selectedPlace: GMSPlace?
-    let defaultLocation = CLLocation(latitude: 37.801731, longitude: -122.265008)
+    let defaultLocation = CLLocation(latitude:37.7798, longitude: -122.4141)
     var destinationLocation: CLLocation!
     var destinationStationIndex: Int = 0
     var hasSetAsDestination: [Bool] = []
@@ -27,6 +27,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
     var polyline: GMSPolyline!
     @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
+    var currMarker: GMSMarker!
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var setOrRemoveDestinationButton: UIButton!
@@ -119,7 +120,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!,
                                               longitude: (locationManager.location?.coordinate.longitude)!,
                                               zoom: zoomLevel)
-        print(locationManager.location?.coordinate.latitude)
+//        print(locationManager.location?.coordinate.latitude)
         self.mapView.camera = camera
         return true
     }
@@ -217,22 +218,22 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
                 do {
                     if let json : [String:Any] = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]{
                         
-                        print(json)
+//                        print(json)
                         guard let routes = json["routes"] as? NSArray else {
                             DispatchQueue.main.async {
                                 self.activityIndicator.stopAnimating()
                             }
                             return
                         }
-                        print("printing routes")
-                        print(routes)
+//                        print("printing routes")
+//                        print(routes)
                         if (routes.count > 0) {
                             let overview_polyline = routes[0] as? NSDictionary
                             let dictPolyline = overview_polyline?["overview_polyline"] as? NSDictionary
                             
                             let points = dictPolyline?.object(forKey: "points") as? String
-                            print("printing points")
-                            print(points!)
+//                            print("printing points")
+//                            print(points!)
                             self.showPath(polyStr: points!)
                             
                             DispatchQueue.main.async {
@@ -297,8 +298,8 @@ class InitialViewController: UIViewController, GMSMapViewDelegate {
         let request = UNNotificationRequest(identifier: identifier,
                                             content: content,
                                             trigger: trigger)
-        print(content.title)
-        print(content.body)
+//        print(content.title)
+//        print(content.body)
         // trying to add the notification request to notification center
         let center = UNUserNotificationCenter.current()
         center.add(request) { (error : Error?) in
@@ -337,10 +338,19 @@ extension InitialViewController: CLLocationManagerDelegate {
             mapView.animate(to: camera)
         }
         
-        let marker = GMSMarker(position: (location.coordinate))
-        marker.title = "McDonalds"
-        marker.snippet = "1330 Jackson St"
-        marker.map = mapView
+        if (currMarker != nil){
+           currMarker.map = nil
+        }
+        print("print location coordinate")
+        print(location.coordinate)
+//        if let checkLocation = location.coordinate{
+//            getPolylineRoute(from: (currentLocation?.coordinate)!, to: destinationLocation.coordinate)
+//        }
+        
+        currMarker = GMSMarker(position: (location.coordinate))
+        currMarker.title = "Civic Center"
+        currMarker.snippet = "1150 Market St"
+        currMarker.map = mapView
     }
     
     // Handle authorization for the location manager.

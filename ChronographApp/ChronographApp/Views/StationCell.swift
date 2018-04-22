@@ -8,13 +8,18 @@
 
 import UIKit
 
-class StationTableViewCell: UITableViewCell {
-    @IBOutlet weak var stationName: UILabel!
-    var station: Station!{
-        didSet{
-            stationName.text = station.name
+class StationCell: UITableViewCell {
+    @IBOutlet weak var stationImage: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    
+    var route: Route! {
+        didSet {
+            nameLabel.text = route.name
+//            addressLabel.text = route.a
         }
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
