@@ -8,27 +8,44 @@
 
 import UIKit
 
-class RoutesViewController: UIViewController {
+class RoutesViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var yellowButton: UIButton!
     @IBOutlet weak var orangeButton: UIButton!
     @IBOutlet weak var blueButton: UIButton!
     @IBOutlet weak var greenButton: UIButton!
-    
+//    var searchBar: UISearchBar!
     var color: String!
     var stations: [Station] = []
     var routes: [Route] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        searchBar = UISearchBar()
+//        searchBar.sizeToFit()
+//        searchBar.showsCancelButton = true
+//        searchBar.delegate = self
+//        navigationItem.titleView = searchBar
+        
         // Do any additional setup after loading the view.
 //        fetchBartList()
         fetchBartRoutes()
+        yellowButton.layer.cornerRadius = 3
+        orangeButton.layer.cornerRadius = 3
+        blueButton.layer.cornerRadius = 3
+        greenButton.layer.cornerRadius = 3
         yellowButton.tag=1
         orangeButton.tag=2
         blueButton.tag=3
         greenButton.tag=4
         
     }
+    
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        searchBar.showsCancelButton = false
+//        searchBar.text = ""
+//        searchBar.resignFirstResponder()
+//        self.tableView.reloadData()
+//    }
     
     @IBAction func isClicked(_ sender: Any) {
         print("detect click")
@@ -37,6 +54,7 @@ class RoutesViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         switch (sender as AnyObject).tag
         {
             case 1: print("1")     //when Button1 is clicked...
@@ -54,12 +72,14 @@ class RoutesViewController: UIViewController {
             default: print("Other...")
         }
         
-        if segue.identifier == "lineDetailsSegue" {
+        if segue.identifier == "lineDetailSegue" {
             var routeSelected: Route!
             
             for route in routes{
                 if (route.hexcolor == "#"+color){
                     routeSelected = route
+                    print("route selected")
+                    print(routeSelected.name)
                     break
                 }
             }

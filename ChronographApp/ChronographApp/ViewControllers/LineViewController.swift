@@ -9,9 +9,6 @@
 import UIKit
 
 class LineViewController: UIViewController {
-    @IBOutlet weak var stationImage: UIImageView!
-    @IBOutlet weak var stationNameLabel: UILabel!
-    @IBOutlet weak var stationAddressLabel: UILabel!
     
     var route: Route!
     
@@ -19,8 +16,7 @@ class LineViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        stationImage.layer.cornerRadius = 3
+        print(route)
     }
 
     override func didReceiveMemoryWarning() {

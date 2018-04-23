@@ -19,7 +19,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
     var placesClient: GMSPlacesClient!
     var zoomLevel: Float = 10.0
 //    var selectedPlace: GMSPlace?
-    let defaultLocation = CLLocation(latitude: 37.801731, longitude: -122.265008)
+    let defaultLocation = CLLocation(latitude: 37.7798, longitude: -122.4141)
     var destinationLocation: CLLocation!
     var destinationStationIndex: Int = 0
     var hasSetAsDestination: [Bool] = []
@@ -28,6 +28,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
     var polyline: GMSPolyline!
     @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
+    var isDestinationSet: Bool = false
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var setOrRemoveDestinationButton: UIButton!
@@ -80,7 +81,13 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
     // This is also where you can set up the simulation of the marker moving in a loop
     // change location.coordinate -> locAlarm.getCurrentLocation()
     @objc func currentLocationUpdated(notification: NSNotification){
-        
+        if (isFirstTimeSetting && isDestinationSet){
+            getPolylineRoute(from: (locAlarm.getCurrentLocation()), to: destinationLocation.coordinate)
+        }
+        else if (isDestinationSet){
+            removePath()
+            getPolylineRoute(from: (locAlarm.getCurrentLocation()), to: destinationLocation.coordinate)
+        }
     }
     
     func plotStations(){
@@ -163,6 +170,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
         let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
         circle.map = nil
         locAlarm.getLocationManager().stopMonitoring(for: geofenceRegion)
+        removePath()
 
 
     }
@@ -179,8 +187,9 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
                 if(hasSetAsDestination[i] == false){ //if it's not the current destination
                     if(!isFirstTimeSetting){ //if it already has a destination set before this
                         removeGeoFence(destination: destinationLocation)
-                        polyline.map = nil
+                        removePath()
                     }
+                    isDestinationSet = true
                     destinationStationIndex = i
                     self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
                     setGeoFence(destination: self.destinationLocation)
@@ -196,7 +205,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
                     destinationLocation = nil
                     setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
                     isFirstTimeSetting = true
-                    removePath()
+                    isDestinationSet = false
                 }
             }
             i += 1
