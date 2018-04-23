@@ -17,9 +17,9 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
     var currentLocation: CLLocation?
     var mapView: GMSMapView!
     var placesClient: GMSPlacesClient!
-    var zoomLevel: Float = 15.0
+    var zoomLevel: Float = 10.0
 //    var selectedPlace: GMSPlace?
-    let defaultLocation = CLLocation(latitude: 37.801731, longitude: -122.265008)
+    let defaultLocation = CLLocation(latitude: 37.7798, longitude: -122.4141)
     var destinationLocation: CLLocation!
     var destinationStationIndex: Int = 0
     var hasSetAsDestination: [Bool] = []
@@ -28,6 +28,8 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
     var polyline: GMSPolyline!
     @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
+    var isDestinationSet: Bool = false
+
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var setOrRemoveDestinationButton: UIButton!
     @IBOutlet weak var stationNameLabel: UILabel!
@@ -79,7 +81,13 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
     // This is also where you can set up the simulation of the marker moving in a loop
     // change location.coordinate -> locAlarm.getCurrentLocation()
     @objc func currentLocationUpdated(notification: NSNotification){
-        
+        if (isFirstTimeSetting && isDestinationSet){
+            getPolylineRoute(from: (locAlarm.getCurrentLocation()), to: destinationLocation.coordinate)
+        }
+        else if (isDestinationSet){
+            removePath()
+            getPolylineRoute(from: (locAlarm.getCurrentLocation()), to: destinationLocation.coordinate)
+        }
     }
     
     func plotStations(){
@@ -121,6 +129,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
         let camera = GMSCameraPosition.camera(withLatitude: (locAlarm.getCurrentLocation().latitude),
                                               longitude: (locAlarm.getCurrentLocation().longitude),
                                               zoom: zoomLevel)
+
         print(locAlarm.getLocationManager().location?.coordinate.latitude)
         self.mapView.camera = camera
         return true
@@ -161,6 +170,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
         let geofenceRegion:CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2DMake(CLLocationDegrees(destination.coordinate.latitude), CLLocationDegrees(destination.coordinate.longitude)), radius: 130, identifier: "geoFence")
         circle.map = nil
         locAlarm.getLocationManager().stopMonitoring(for: geofenceRegion)
+        removePath()
 
 
     }
@@ -177,8 +187,9 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
                 if(hasSetAsDestination[i] == false){ //if it's not the current destination
                     if(!isFirstTimeSetting){ //if it already has a destination set before this
                         removeGeoFence(destination: destinationLocation)
-                        polyline.map = nil
+                        removePath()
                     }
+                    isDestinationSet = true
                     destinationStationIndex = i
                     self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
                     setGeoFence(destination: self.destinationLocation)
@@ -194,7 +205,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
                     destinationLocation = nil
                     setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
                     isFirstTimeSetting = true
-                    removePath()
+                    isDestinationSet = false
                 }
             }
             i += 1
@@ -217,7 +228,6 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
             else {
                 do {
                     if let json : [String:Any] = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]{
-
 //                        print(json)
                         guard let routes = json["routes"] as? NSArray else {
                             DispatchQueue.main.async {
@@ -276,6 +286,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
         polyline.map = nil
     }
     
+
     @objc func alertUser(notification: NSNotification){
         let alert = UIAlertController(title: "Wake Up!", message: "Pack up and get ready to get off the upcoming station.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
@@ -290,4 +301,3 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
     }
 
 }
-
