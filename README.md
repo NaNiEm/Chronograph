@@ -9,7 +9,7 @@ The following are **core** user stories:
 - [x] User can set a designated location by picking and setting a pin as a destination.
 - [x] User can toggle between list view and map view.
 - [ ] User can see ETA and distance left.
-- [ ] User can receive a sound notification as default or when necessary.
+- [x] User can receive a sound notification as default or when necessary.
 - [ ] User can change the type of alarm they would receive (vibrate, sound, banner).
 - [ ] User can have phone set to silent and still have the alarm go off.
 
