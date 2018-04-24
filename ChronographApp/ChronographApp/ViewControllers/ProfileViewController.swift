@@ -19,8 +19,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var locationInput: UITextField!
     @IBOutlet weak var editPencilImg: UIImageView!
     
-    // first time we click edit, we want to edit!
-    var is_editing = true
+    var is_editing = false
     
     // Instantiate a UIImagePickerController
     var vc : UIImagePickerController!
@@ -60,71 +59,80 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         return cell
     }
     
-    func checkEdit() {
-        if (is_editing) {
-            // hide the static views
-            profileName.isHidden = true
-            profileLocation.isHidden = true
-
-            // allow user to input info for name
-            nameInput.isHidden = false
-            nameInput.isUserInteractionEnabled = true
-            nameInput.placeholder = profileName.text
-            
-            // allow user to input info for location
-            locationInput.isHidden = false
-            locationInput.isUserInteractionEnabled = true
-            locationInput.placeholder = profileLocation.text
-            
-            // visual and prgrammatic flags
-            editPencilImg.alpha = 0.5
-            is_editing = false
+    func canEdit() {
+        // hide the static views
+        profileName.isHidden = true
+        profileLocation.isHidden = true
+        
+        // allow user to input info for name
+        nameInput.isHidden = false
+        nameInput.isUserInteractionEnabled = true
+        nameInput.placeholder = profileName.text
+        
+        // allow user to input info for location
+        locationInput.isHidden = false
+        locationInput.isUserInteractionEnabled = true
+        locationInput.placeholder = profileLocation.text
+    }
+    func cannotEdit() {
+        // replace the static views
+        if ((nameInput.text?.isEmpty)! || (locationInput.text?.isEmpty)!) {
+            profileName.text = "Name"
+            profileLocation.text = "Location"
         } else {
-            // replace the static views
-            if ((nameInput.text?.isEmpty)! || (locationInput.text?.isEmpty)!) {
-                profileName.text = "Name"
-                profileLocation.text = "Location"
-            } else {
-                profileName.text = nameInput.text
-                profileLocation.text = locationInput.text
-            }
-            
-            // show changed static views
-            profileName.isHidden = false
-            profileLocation.isHidden = false
-            
-            // hide the input views
-            nameInput.isHidden = true
-            nameInput.isUserInteractionEnabled = false
-            locationInput.isHidden = true
-            locationInput.isUserInteractionEnabled = false
-            
+            profileName.text = nameInput.text
+            profileLocation.text = locationInput.text
+        }
+        
+        // show changed static views
+        profileName.isHidden = false
+        profileLocation.isHidden = false
+        
+        // hide the input views
+        nameInput.isHidden = true
+        nameInput.isUserInteractionEnabled = false
+        locationInput.isHidden = true
+        locationInput.isUserInteractionEnabled = false
+    }
+    func switchEditFlag() {
+        // if edit is on, turn it off
+        if (is_editing) {
             // visual and prgrammatic flags
             editPencilImg.alpha = 1
+            is_editing = false
+            cannotEdit()
+        
+        // if edit is off, turn it on
+        } else {
+            // visual and prgrammatic flags
+            editPencilImg.alpha = 0.5
             is_editing = true
+            canEdit()
         }
     }
     
     @IBAction func onEditTap(_ sender: Any) {
-        checkEdit()
+        switchEditFlag()
     }
     @IBAction func onImageTap(_ sender: Any) {
         chooseImage()
     }
     func chooseImage() {
-        vc = UIImagePickerController()
-        vc.delegate = self
-        vc.allowsEditing = true
-        
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            print("Camera is available 📸")
-            vc.sourceType = .camera
-        } else {
-            print("Camera 🚫 available so we will use photo library instead")
-            vc.sourceType = .photoLibrary
+        if (is_editing) {
+            vc = UIImagePickerController()
+            vc.delegate = self
+            vc.allowsEditing = true
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                print("Camera is available 📸")
+                vc.sourceType = .camera
+            } else {
+                print("Camera 🚫 available so we will use photo library instead")
+                vc.sourceType = .photoLibrary
+            }
+            
+            self.present(vc, animated: true, completion: nil)
         }
-        
-        self.present(vc, animated: true, completion: nil)
     }
     
     // helper function
