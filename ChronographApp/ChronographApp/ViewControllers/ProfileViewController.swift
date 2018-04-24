@@ -42,11 +42,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         locationInput.isUserInteractionEnabled = false
         locationInput.placeholder = "Location"
     }
-    
-    @objc func didPullToReFresh(_ refreshControl: UIRefreshControl){
-        refreshControl.endRefreshing()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewLoadSetup()
@@ -55,18 +50,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func viewLoadSetup(){
         // setup view did load here
-        print("In Profile VC setup: ", recentStations)
-        if (recentStations.count > 0) {
-            print(recentStations[0].name)
-        }
+        self.profileRecent.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    @objc func didPullToReFresh(_ refreshControl: UIRefreshControl){
+        print("refreshed, stations: ", recentStations.count)
+        self.profileRecent.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Stations count: ", recentStations.count)
         return recentStations.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,7 +72,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let station = recentStations[indexPath.row]
         cell.nameLabel.text = station.name
         cell.addressLabel.text = station.address
-//        cell.imageView
         return cell
     }
     
