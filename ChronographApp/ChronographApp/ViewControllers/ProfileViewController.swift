@@ -15,17 +15,81 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var profileLocation: UILabel!
     @IBOutlet weak var profileRecent: UITableView!
     
+    @IBOutlet weak var nameInput: UITextField!
+    @IBOutlet weak var locationInput: UITextField!
+    @IBOutlet weak var editPencilImg: UIImageView!
+    
+    var is_editing = true
+    var name = "Name"
+    var location = "Location"
+    
     // Instantiate a UIImagePickerController
     var vc : UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nameInput.isHidden = true
+        nameInput.isUserInteractionEnabled = false
+        nameInput.placeholder = "Name"
+        
+        locationInput.isHidden = true
+        locationInput.isUserInteractionEnabled = false
+        locationInput.placeholder = "Location"
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    func checkEdit() {
+        if (is_editing) {
+            // hide the static views
+            profileName.isHidden = true
+            profileLocation.isHidden = true
+
+            // allow user to input info for name
+            nameInput.isHidden = false
+            nameInput.isUserInteractionEnabled = true
+            nameInput.placeholder = profileName.text
+            
+            // allow user to input info for location
+            locationInput.isHidden = false
+            locationInput.isUserInteractionEnabled = true
+            locationInput.placeholder = profileLocation.text
+            
+            // visual and prgrammatic flags
+            editPencilImg.alpha = 0.5
+            is_editing = false
+        } else {
+            // replace the static views
+            if ((nameInput.text?.isEmpty)! || (locationInput.text?.isEmpty)!) {
+                profileName.text = "Name"
+                profileLocation.text = "Location"
+            } else {
+                profileName.text = nameInput.text
+                profileLocation.text = locationInput.text
+            }
+            
+            // show changed static views
+            profileName.isHidden = false
+            profileLocation.isHidden = false
+            
+            // hide the input views
+            nameInput.isHidden = true
+            nameInput.isUserInteractionEnabled = false
+            locationInput.isHidden = true
+            locationInput.isUserInteractionEnabled = false
+            
+            // visual and prgrammatic flags
+            editPencilImg.alpha = 1
+            is_editing = true
+        }
+    }
+    
+    @IBAction func onEditTap(_ sender: Any) {
+        checkEdit()
+    }
     @IBAction func onImageTap(_ sender: Any) {
         chooseImage()
     }
