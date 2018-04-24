@@ -20,6 +20,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var editPencilImg: UIImageView!
     
     var is_editing = false
+    var recentStations: [Station] = []
+    var refreshControl : UIRefreshControl!
     
     // Instantiate a UIImagePickerController
     var vc : UIImagePickerController!
@@ -27,6 +29,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(ProfileViewController.didPullToReFresh(_:)), for: .valueChanged)
+        profileRecent.insertSubview(refreshControl, at: 0)
         profileRecent.dataSource = self
         
         nameInput.isHidden = true
@@ -37,25 +42,40 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         locationInput.isUserInteractionEnabled = false
         locationInput.placeholder = "Location"
     }
+    
+    @objc func didPullToReFresh(_ refreshControl: UIRefreshControl){
+        refreshControl.endRefreshing()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewLoadSetup()
+        
+    }
+    
+    func viewLoadSetup(){
+        // setup view did load here
+        print("In Profile VC setup: ", recentStations)
+        if (recentStations.count > 0) {
+            print(recentStations[0].name)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        print("Posts count: ", posts.count)
-//        return posts.count
-        return 5
+        print("Stations count: ", recentStations.count)
+        return recentStations.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StationCell", for: indexPath)
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
-//        let post = posts[indexPath.row]
-//        cell.postCaptionLabel.text = post.caption
-//        print(post.media)
-//        print(cell.postImageView)
-//        cell.postImageView.file = post.media
-//        cell.postImageView.loadInBackground()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StationCell", for: indexPath) as! StationCell
+        
+        let station = recentStations[indexPath.row]
+        cell.nameLabel.text = station.name
+        cell.addressLabel.text = station.address
+//        cell.imageView
         return cell
     }
     
