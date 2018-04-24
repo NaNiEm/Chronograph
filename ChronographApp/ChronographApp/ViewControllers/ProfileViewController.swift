@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDataSource {
     
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var profileName: UILabel!
@@ -19,15 +19,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var locationInput: UITextField!
     @IBOutlet weak var editPencilImg: UIImageView!
     
+    // first time we click edit, we want to edit!
     var is_editing = true
-    var name = "Name"
-    var location = "Location"
     
     // Instantiate a UIImagePickerController
     var vc : UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        profileRecent.dataSource = self
         
         nameInput.isHidden = true
         nameInput.isUserInteractionEnabled = false
@@ -40,6 +41,23 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        print("Posts count: ", posts.count)
+//        return posts.count
+        return 5
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StationCell", for: indexPath)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
+//        let post = posts[indexPath.row]
+//        cell.postCaptionLabel.text = post.caption
+//        print(post.media)
+//        print(cell.postImageView)
+//        cell.postImageView.file = post.media
+//        cell.postImageView.loadInBackground()
+        return cell
     }
     
     func checkEdit() {
