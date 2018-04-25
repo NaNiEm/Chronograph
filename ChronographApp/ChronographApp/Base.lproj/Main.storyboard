@@ -406,7 +406,7 @@
                                         <connections>
                                             <outlet property="addressLabel" destination="qw4-vC-Ovv" id="Ec2-YU-xpL"/>
                                             <outlet property="nameLabel" destination="QWN-6p-Z95" id="nyk-JE-NHg"/>
-                                            <outlet property="stationImageView" destination="nFu-lL-JdZ" id="0D1-e3-unF"/>
+                                            <outlet property="stationImage" destination="nFu-lL-JdZ" id="0D1-e3-unF"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
