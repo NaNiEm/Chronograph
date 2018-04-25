@@ -8,15 +8,20 @@
 
 import UIKit
 
-class LineViewController: UIViewController {
+class LineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var route: Route!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        print(route)
+        // set up table view
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
+        printStations()
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,7 +29,24 @@ class LineViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func printStations(){
+        
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StationCell", for: indexPath) as! StationCell
 
+        cell.nameLabel.text = "Example"
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     /*
     // MARK: - Navigation
 

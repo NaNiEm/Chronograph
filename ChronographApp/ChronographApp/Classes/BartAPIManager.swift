@@ -59,5 +59,25 @@ class BartAPIManager {
         }
         task.resume()
     }
+    func listBartStationsInRoute(completion: @escaping ([Route]?, Error?) -> ()) {
+        // link for list of BART stations (JSON) : http://api.bart.gov/api/route.aspx?cmd=routeInfo&key=QSBV-PVEA-9KET-DWE9&json=y
+        let url = URL(string: BartAPIManager.baseURLRoute + "cmd=routeInfo&key=\(BartAPIManager.apiKey)&json=y")!
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            // This will run when the network request returns
+            if let data = data {
+                let dataDict = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                let rawDict = dataDict["root"] as! [String: Any]
+                
+                let routeList = rawDict["routes"] as! [String: Any]
+                let route = routeList["route"] as! [[String: Any]]
+                let routes = Route.routes(dicts: route)
+                completion(routes, nil)
+            } else {
+                completion(nil, error)
+            }
+        }
+        task.resume()
+    }
     
 }
