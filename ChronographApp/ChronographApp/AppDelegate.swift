@@ -12,7 +12,7 @@ import GooglePlaces
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate{
 
     var window: UIWindow?
     
@@ -30,11 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             (granted, error) in
             if !granted {
                 print("You can't do that and have this app work!")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DeniedNotification"), object: nil)
             }
         }
         
         return true
     }
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

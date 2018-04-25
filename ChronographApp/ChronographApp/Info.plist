@@ -26,7 +26,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow CookieMeUp to use your location</string>
+	<string>Location access is necessary for Chronograph to run properly</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Show your location on a map.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

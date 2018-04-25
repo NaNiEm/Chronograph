@@ -17,7 +17,7 @@ protocol locationAlarmDelegate {
     func locationDidUpdateToLocation(location : CLLocation)
 }
 
-class locationAlarm: NSObject, CLLocationManagerDelegate, GMSMapViewDelegate{
+class locationAlarm: NSObject, CLLocationManagerDelegate{
     
     static let shared = locationAlarm()
     private var locationManager = CLLocationManager()
@@ -25,6 +25,11 @@ class locationAlarm: NSObject, CLLocationManagerDelegate, GMSMapViewDelegate{
     var currentLocation: CLLocation?
     var delegate : locationAlarmDelegate!
     private var isFirstTimeSettingUp: Bool = true
+    var isNotificationEnabled: Bool = true
+    var hasLocationAccess: Bool = true
+    //TODO: check for audio. If muted, notify user.
+    let audioSession = AVAudioSession.sharedInstance()
+    var volume: Float?
     
     private override init () {
         super.init()
@@ -37,6 +42,14 @@ class locationAlarm: NSObject, CLLocationManagerDelegate, GMSMapViewDelegate{
         self.locationManager.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(stopAudio(notification:)), name: NSNotification.Name(rawValue: "StopAlarm"), object: nil)
+        
+        do {
+            try audioSession.setActive(true)
+            volume = audioSession.outputVolume
+            print("Volume: " + String(describing: volume))
+        } catch {
+            print("Error Setting Up Audio Session")
+        }
         
         //Setting audio to be played when inside the geofence
         var audioFilePath = Bundle.main.path(forResource: "Hungaria", ofType: "mp3")
@@ -82,6 +95,7 @@ class locationAlarm: NSObject, CLLocationManagerDelegate, GMSMapViewDelegate{
     
     func handleEvent(forRegion region: CLRegion!) {
         
+        print("Stepped inside geolocation")
         // customize your notification content
         let state = UIApplication.shared.applicationState
         // if the app is running in the background, send local push notif
@@ -134,15 +148,22 @@ class locationAlarm: NSObject, CLLocationManagerDelegate, GMSMapViewDelegate{
         switch status {
         case .restricted:
             print("Location access was restricted.")
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DeniedLocationAccess"), object: nil)
+            self.hasLocationAccess = false
         case .denied:
             print("User denied access to location.")
-            // Display the map using the default location.
-            // TODO: SET ALERT TO TELL USER TO FIX IT
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DeniedNotification"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DeniedLocationAccess"), object: nil)
+            self.hasLocationAccess = false
         case .notDetermined:
             print("Location status not determined.")
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DeniedLocationAccess"), object: nil)
+            self.hasLocationAccess = false
         case .authorizedAlways: fallthrough
         case .authorizedWhenInUse:
+            if(!self.isFirstTimeSettingUp && !self.hasLocationAccess){
+                self.hasLocationAccess = true
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "settingUp"), object: nil)
+            }
             print("Location status is OK.")
         }
     }
