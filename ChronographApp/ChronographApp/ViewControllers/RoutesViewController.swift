@@ -13,7 +13,8 @@ class RoutesViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var orangeButton: UIButton!
     @IBOutlet weak var blueButton: UIButton!
     @IBOutlet weak var greenButton: UIButton!
-//    var searchBar: UISearchBar!
+    @IBOutlet weak var redButton: UIButton!
+    //    var searchBar: UISearchBar!
     var color: String!
     var stations: [Station] = []
     var routes: [Route] = []
@@ -30,13 +31,15 @@ class RoutesViewController: UIViewController, UISearchBarDelegate {
 //        fetchBartList()
         fetchBartRoutes()
         yellowButton.layer.cornerRadius = 3
+        redButton.layer.cornerRadius = 3
         orangeButton.layer.cornerRadius = 3
         blueButton.layer.cornerRadius = 3
         greenButton.layer.cornerRadius = 3
-        yellowButton.tag=1
-        orangeButton.tag=2
-        blueButton.tag=3
-        greenButton.tag=4
+        yellowButton.tag = 1
+        redButton.tag = 2
+        orangeButton.tag = 3
+        blueButton.tag = 4
+        greenButton.tag = 5
         
     }
     
@@ -57,16 +60,18 @@ class RoutesViewController: UIViewController, UISearchBarDelegate {
         
         switch (sender as AnyObject).tag
         {
-            case 1: print("1")     //when Button1 is clicked...
+            case 1: print("1")     //when yellow is clicked...
             color = "ffff33"
                 break
-            case 2: print("2")     //when Button2 is clicked...
+            case 2: print("2")     //when red is clicked...
+            color = "ff0000"
+                break
+            case 3: print("3")     //when orange is clicked...
             color = "ff9933"
                 break
-            case 3: print("3")     //when Button3 is clicked...
+            case 4: print("4")     //when blue is clicked...
             color = "0099cc"
-                break
-            case 4: print("4")     //when Button4 is clicked...
+            case 5: print("5")     //when green is clicked...
             color = "339933"
                 break
             default: print("Other...")
