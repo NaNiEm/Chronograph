@@ -12,7 +12,7 @@ class StationCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var stationImageView: UIImageView!
+    @IBOutlet weak var stationImage: UIImageView!
     
     var route: Route! {
         didSet {
