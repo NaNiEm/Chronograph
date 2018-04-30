@@ -14,10 +14,10 @@ class StationCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var stationImage: UIImageView!
     
-    var route: Route! {
+    var station: Station! {
         didSet {
-            nameLabel.text = route.name
-//            addressLabel.text = route.a
+            nameLabel.text = station.name
+            addressLabel.text = station.address
         }
     }
     

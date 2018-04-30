@@ -59,9 +59,10 @@ class BartAPIManager {
         }
         task.resume()
     }
-    func listBartStationsInRoute(completion: @escaping ([Route]?, Error?) -> ()) {
+    func listBartRouteInfo(routeNum: String, completion: @escaping ([RouteInfo]?, Error?) -> ()) {
         // link for list of BART stations (JSON) : http://api.bart.gov/api/route.aspx?cmd=routeInfo&key=QSBV-PVEA-9KET-DWE9&json=y
-        let url = URL(string: BartAPIManager.baseURLRoute + "cmd=routeInfo&key=\(BartAPIManager.apiKey)&json=y")!
+        let url = URL(string: BartAPIManager.baseURLRoute + "cmd=routeinfo&route=" + routeNum + "&key=\(BartAPIManager.apiKey)&json=y")!
+        print(url)
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let task = session.dataTask(with: request) { (data, response, error) in
             // This will run when the network request returns
@@ -69,15 +70,16 @@ class BartAPIManager {
                 let dataDict = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let rawDict = dataDict["root"] as! [String: Any]
                 
-                let routeList = rawDict["routes"] as! [String: Any]
-                let route = routeList["route"] as! [[String: Any]]
-                let routes = Route.routes(dicts: route)
-                completion(routes, nil)
+                let routes = rawDict["routes"] as! [String: Any]
+//                print(routes)
+                let route = routes["route"] as! [String: Any]
+//                print(route["config"])
+                let allRouteInfo = RouteInfo.allRoutesInfo(dicts: [route])
+                completion(allRouteInfo, nil)
             } else {
                 completion(nil, error)
             }
         }
         task.resume()
     }
-    
 }

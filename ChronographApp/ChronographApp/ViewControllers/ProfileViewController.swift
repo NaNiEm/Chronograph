@@ -33,6 +33,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         refreshControl.addTarget(self, action: #selector(ProfileViewController.didPullToReFresh(_:)), for: .valueChanged)
         profileRecent.insertSubview(refreshControl, at: 0)
         profileRecent.dataSource = self
+        profileRecent.rowHeight = UITableViewAutomaticDimension
+        profileRecent.estimatedRowHeight = 100
         
         nameInput.isHidden = true
         nameInput.isUserInteractionEnabled = false
