@@ -500,7 +500,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MrV-e5-EBF">
-                                <rect key="frame" x="176" y="106" width="110" height="83"/>
+                                <rect key="frame" x="20" y="80" width="110" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="onImageTap:" destination="olp-mb-CUZ" eventType="touchUpInside" id="zYQ-Tt-sdl"/>
