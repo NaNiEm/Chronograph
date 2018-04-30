@@ -212,7 +212,15 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    func saveRecentStation(station: Station) {
+        print("Saving station: ", station)
+        var profileTab = self.tabBarController?.viewControllers![2] as! ProfileViewController
+        profileTab.recentStations.append(station)
+        
+//        let profileVC = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
+        
+        print(profileTab.recentStations)
+    }
     @IBAction func setDestinationTapped(_ sender: Any) {
         var i = 0
 //        print("Tapping")
@@ -229,6 +237,10 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
                     setGeoFence(destination: self.destinationLocation)
                     setOrRemoveDestinationButton.setTitle("Remove", for: .normal)
                     isFirstTimeSetting = false
+                    
+                    // sending station to profile view controller
+                    saveRecentStation(station: station)
+                    
                     let destination = destinationLocation.coordinate
                     let origin = defaultLocation.coordinate
                     self.getPolylineRoute(from: origin, to: destination)
