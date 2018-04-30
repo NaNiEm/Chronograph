@@ -222,6 +222,15 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
         print(profileTab.recentStations)
     }
     @IBAction func setDestinationTapped(_ sender: Any) {
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings { (settings) in
+            if settings.authorizationStatus != .authorized {
+                // Notifications not allowed
+                print("This app can't run correctly because this app was not given permission to send notification.")
+                return;
+            }
+        }
+        
         var i = 0
 //        print("Tapping")
         for station in stations{

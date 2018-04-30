@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         GMSPlacesClient.provideAPIKey("AIzaSyBG6gyjpiLao5S60A_DJcTUmo-UPera4AE")
         
-        
         let center = UNUserNotificationCenter.current()
         let options: UNAuthorizationOptions = [.alert, .sound];
         center.requestAuthorization(options: options) {
@@ -33,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DeniedNotification"), object: nil)
             }
         }
-        
         return true
     }
     
