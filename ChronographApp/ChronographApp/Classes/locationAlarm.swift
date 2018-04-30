@@ -94,7 +94,6 @@ class locationAlarm: NSObject, CLLocationManagerDelegate{
     }
     
     func handleEvent(forRegion region: CLRegion!) {
-        
         print("Stepped inside geolocation")
         // customize your notification content
         let state = UIApplication.shared.applicationState
@@ -164,6 +163,7 @@ class locationAlarm: NSObject, CLLocationManagerDelegate{
                 self.hasLocationAccess = true
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "settingUp"), object: nil)
             }
+//            self.isFirstTimeSettingUp = false
             print("Location status is OK.")
         }
     }

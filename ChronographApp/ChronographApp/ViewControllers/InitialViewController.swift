@@ -29,13 +29,12 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
     @IBOutlet weak var SetDestView: UIView!
     var stations: [Station] = []
     var isDestinationSet: Bool = false
-    
+    var currLocMarker: GMSMarker!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var setOrRemoveDestinationButton: UIButton!
     @IBOutlet weak var stationNameLabel: UILabel!
     //place holder values
     var circle = GMSCircle(position: CLLocationCoordinate2D(latitude: 37.801731, longitude: -122.265008), radius: 130)
-    
     @IBOutlet weak var mapUIView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,9 +44,10 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
         NotificationCenter.default.addObserver(self, selector: #selector(setUIMapView(notification:)), name: NSNotification.Name(rawValue: "settingUp"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(currentLocationUpdated(notification:)), name: NSNotification.Name(rawValue: "updateCurrentLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(alertUser(notification:)), name: NSNotification.Name(rawValue: "StartAlarm"), object: nil)
+        print("Finished Setting Up Alarm")
         NotificationCenter.default.addObserver(self, selector: #selector(alertUserToChangeNotifSettings(notification:)), name: NSNotification.Name(rawValue: "DeniedNotification"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(alertUserToChangeLocationSettings(notification:)), name: NSNotification.Name(rawValue: "DeniedLocationAccess"), object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(alertUserToChangeNotifSettings(notification:)), name: NSNotification.Name(rawValue: "DeniedNotification"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(alertUserToIncreaseVolume(notification:)), name: NSNotification.Name(rawValue: "Volume"), object: nil)
         activityIndicator.startAnimating()
         
         SetDestView.isHidden = true
@@ -56,6 +56,9 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
     }
     
     @objc func setUIMapView(notification: NSNotification){
+        
+        SetDestView.layer.cornerRadius = 3
+        setOrRemoveDestinationButton.layer.cornerRadius = 10
         
         let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
                                               longitude: defaultLocation.coordinate.longitude,
@@ -100,11 +103,20 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
     }
     
     @objc func currentLocationUpdated(notification: NSNotification){
+//        currLocMarker = GMSMarker(position: (currentLocation?.coordinate)!)
+//        currLocMarker.title = "currLoc"
+//        currLocMarker.icon = UIImage(named: "circle")
+//        currLocMarker.snippet = "user's location"
+//        currLocMarker.map = mapView
+        if (!isFirstTimeSetting){
+//            currLocMarker.map = nil
+        }
         if (isFirstTimeSetting && isDestinationSet){
             getPolylineRoute(from: (locAlarm.getCurrentLocation()), to: destinationLocation.coordinate)
         }
         else if (isDestinationSet){
             removePath()
+//            currLocMarker.map = nil
             getPolylineRoute(from: (locAlarm.getCurrentLocation()), to: destinationLocation.coordinate)
         }
     }
@@ -114,6 +126,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
             // TODO: make Station store CLLocationCoordinate2D or CLLocationDegrees
             let marker = GMSMarker(position: (CLLocationCoordinate2D(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))))
             marker.title = station.name
+            marker.icon = UIImage(named: "pin")
             marker.snippet = station.address
             marker.map = mapView
             hasSetAsDestination.append(false)
@@ -129,10 +142,10 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
             for station in stations{
                 if(marker.position.latitude == CLLocationDegrees(station.latitude) && marker.position.longitude == CLLocationDegrees(station.longitude)){
                     if(hasSetAsDestination[i] == true){
-                        setOrRemoveDestinationButton.setTitle("Rmv Destination", for: .normal)
+                        setOrRemoveDestinationButton.setTitle("Remove", for: .normal)
                     }
                     else{
-                        setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
+                        setOrRemoveDestinationButton.setTitle("Set", for: .normal)
                     }
                     stationNameLabel.text = station.name
                     stationName = station.name
@@ -214,7 +227,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
                     destinationStationIndex = i
                     self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
                     setGeoFence(destination: self.destinationLocation)
-                    setOrRemoveDestinationButton.setTitle("Rmv Destination", for: .normal)
+                    setOrRemoveDestinationButton.setTitle("Remove", for: .normal)
                     isFirstTimeSetting = false
                     let destination = destinationLocation.coordinate
                     let origin = defaultLocation.coordinate
@@ -224,7 +237,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
                     self.destinationLocation = CLLocation(latitude: CLLocationDegrees(station.latitude), longitude: CLLocationDegrees(station.longitude))
                     removeGeoFence(destination: self.destinationLocation)
                     destinationLocation = nil
-                    setOrRemoveDestinationButton.setTitle("Set Destination", for: .normal)
+                    setOrRemoveDestinationButton.setTitle("Set", for: .normal)
                     isFirstTimeSetting = true
                     isDestinationSet = false
                 }
@@ -238,7 +251,7 @@ class InitialViewController: UIViewController, GMSMapViewDelegate, locationAlarm
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
 
-        let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(destination.latitude),\(destination.longitude)&sensor=true&mode=transit&key=AIzaSyAR-HPSnLwn4pdl_KjzNvuJ7KmWkM4yoDY")!
+        let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(destination.latitude),\(destination.longitude)&sensor=true&mode=transit&transit_mode=train&key=AIzaSyAR-HPSnLwn4pdl_KjzNvuJ7KmWkM4yoDY")!
 
         let task = session.dataTask(with: url, completionHandler: {
             (data, response, error) in

@@ -9,11 +9,11 @@
 import Foundation
 
 class Route {
-    var name: String;
-    var abbr: String;
-    var routeID: String;
-    var number: String;
-    var hexcolor: String;
+    var name: String
+    var abbr: String
+    var routeID: String
+    var number: String
+    var hexcolor: String
     
     init(name: String, abbr: String, routeID: String, number: String,
          hexcolor: String) {
