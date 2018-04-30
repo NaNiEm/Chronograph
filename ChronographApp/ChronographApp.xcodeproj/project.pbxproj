@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		260AE4B12096F5B500AD1CAA /* RouteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260AE4B02096F5B500AD1CAA /* RouteInfo.swift */; };
 		267611D2206A2E0B0061AAD0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267611D1206A2E0B0061AAD0 /* ProfileViewController.swift */; };
 		267611D4206A2E400061AAD0 /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267611D3206A2E400061AAD0 /* RoutesViewController.swift */; };
 		267611D7206A3BB80061AAD0 /* StationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267611D6206A3BB80061AAD0 /* StationCell.swift */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		11A380C0ED31E0837121ECB4 /* Pods-ChronographApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographApp/Pods-ChronographApp.release.xcconfig"; sourceTree = "<group>"; };
 		1749B47E4B29950C0E54C71D /* Pods-ChronographAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChronographAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChronographAppUITests/Pods-ChronographAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		260AE4B02096F5B500AD1CAA /* RouteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfo.swift; sourceTree = "<group>"; };
 		267611D1206A2E0B0061AAD0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		267611D3206A2E400061AAD0 /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
 		267611D6206A3BB80061AAD0 /* StationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationCell.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				26EFA3A1208BEFE600777C16 /* Route.swift */,
 				26EFA3A5208C203300777C16 /* CustomNavBar.swift */,
 				283B08FD208BC18300EE5CFF /* locationAlarm.swift */,
+				260AE4B02096F5B500AD1CAA /* RouteInfo.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				26EFA3A2208BEFE700777C16 /* Route.swift in Sources */,
 				B86E63DD2069A8220097BEE5 /* BartAPIManager.swift in Sources */,
 				B895AB9620589212004CB7A5 /* AppDelegate.swift in Sources */,
+				260AE4B12096F5B500AD1CAA /* RouteInfo.swift in Sources */,
 				283B08FE208BC18300EE5CFF /* locationAlarm.swift in Sources */,
 				B895ABC6205897CE004CB7A5 /* GoogleMapsAPIManager.swift in Sources */,
 				267611D4206A2E400061AAD0 /* RoutesViewController.swift in Sources */,
