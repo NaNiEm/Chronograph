@@ -458,7 +458,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="tAd-Lw-jsG"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" id="zoD-Yi-Pff"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="profile_icon" id="zoD-Yi-Pff"/>
                     <navigationItem key="navigationItem" title="Chronograph" id="4B3-xQ-KTZ"/>
                     <connections>
                         <outlet property="editPencilImg" destination="4uO-xW-Xtj" id="3KB-Wg-Zwv"/>
@@ -508,6 +508,7 @@
         <image name="edit_pencil" width="512" height="512"/>
         <image name="icons8-map-30" width="30" height="30"/>
         <image name="icons8-train-64" width="30" height="30"/>
+        <image name="profile_icon" width="32" height="32"/>
         <image name="system-map" width="500" height="500"/>
     </resources>
 </document>
